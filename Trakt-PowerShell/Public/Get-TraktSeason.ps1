@@ -126,13 +126,7 @@ function Get-TraktSeason
         switch ($PSCmdlet.ParameterSetName)
         {
             AllSeasonsForAShow { $uri = 'shows/{0}/seasons' -f $Id }
-            SingleSeasonForAShow {
-                if ($PSBoundParameters.ContainsKey('Translations')) {
-                    $uri = 'shows/{0}/seasons/{1}?translations={2}' -f $Id, $SeasonNumber, $Translations
-                } else {
-                    $uri = 'shows/{0}/seasons/{1}' -f $Id, $SeasonNumber
-                }
-            }
+            SingleSeasonForAShow { $uri = 'shows/{0}/seasons/{1}' -f $Id, $SeasonNumber }
             AllSeasonComments {
                 if ($PSBoundParameters.ContainsKey('Sort')) {
                     $uri = 'shows/{0}/seasons/{1}/comments/{2}' -f $Id, $SeasonNumber, $Sort
@@ -157,6 +151,10 @@ function Get-TraktSeason
         }
         
         $parameters = @{}
+
+        if ($PSBoundParameters.ContainsKey('Translations')) {
+            $parameters.translations = $Translations
+        }
         
         if ($PSBoundParameters.ContainsKey("Page")) {
             $parameters.page = $Page
