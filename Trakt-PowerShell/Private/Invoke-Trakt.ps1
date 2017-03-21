@@ -52,13 +52,10 @@ function Invoke-Trakt
     process
     {
         try {
+            $requestParameters = @{}
+
             $builder = New-Object -TypeName 'System.UriBuilder' -ArgumentList $Script:API_URI
             $builder.Path = $Uri
-
-            $headers = $Script:DEFAULT_HEADERS
-            if ($Script:ACCESS_TOKEN -ne $null) {
-                $headers.authorization = ('Bearer {0}' -f $Script:ACCESS_TOKEN.access_token)
-            }
             
             if ($PSBoundParameters.ContainsKey('Parameters')) {
                 $Parameters.GetEnumerator() |
@@ -70,16 +67,20 @@ function Invoke-Trakt
                         }
                     }   
             }
-            
-            $requestParameters = @{}
 
             $requestParameters.Uri = $builder.ToString()
+
+            $headers = $Script:DEFAULT_HEADERS
+            if ($Script:ACCESS_TOKEN -ne $null) {
+                $headers.authorization = ('Bearer {0}' -f $Script:ACCESS_TOKEN.access_token)
+            }
+            
             $requestParameters.Headers = $headers
 
             if ($PSBoundParameters.ContainsKey('PostData')) {
                 $requestParameters.Body = $PostData | ConvertTo-Json -Depth 4
-
-                Write-Verbose $requestParameters.Body
+                
+                Write-Debug $requestParameters.Body
             }
             
             if ($PSBoundParameters.ContainsKey('Method')) {
