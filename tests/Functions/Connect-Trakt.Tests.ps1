@@ -32,6 +32,10 @@ InModuleScope Trakt-PowerShell {
             $Script:ACCESS_TOKEN_PATH | Should Exist
             $newToken | Should Not BeNullOrEmpty
             $newToken.access_token | Should Not Be $token.access_token
+
+            $newToken2 = Connect-Trakt
+
+            $newToken.access_token | Should Be $newToken2.access_token
         }
 
         AfterAll {
