@@ -280,8 +280,10 @@ function Get-TraktShow
         
         Invoke-Trakt -Uri $uri -Method ([Microsoft.PowerShell.Commands.WebRequestMethod]::Get) -Parameters $parameters |
         ForEach-Object {
-            if ($_.Show -ne $null) {
+            if ($_.Show -ne $null -and $PSCmdlet.ParameterSetName -ne 'MostPlayedShows') {
                 $_.Show | ConvertTo-TraktShow
+            } elseif ($PSCmdlet.ParameterSetName -eq 'MostPlayedShows') {
+                $_ | ConvertTo-TraktPlayed
             } else {
                 $_ | ConvertTo-TraktShow
             }
