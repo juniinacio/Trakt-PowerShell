@@ -275,10 +275,12 @@ function Get-TraktMovie
 
         Invoke-Trakt -Uri $uri -Method ([Microsoft.PowerShell.Commands.WebRequestMethod]::Get) -Parameters $parameters |
         ForEach-Object {
-            if ($PSBoundParameters.ContainsKey('Id')) {
-                $_ | ConvertTo-TraktMovie
-            } else {
+            if ($PSCmdlet.ParameterSetName -eq 'TrendingMovies') {
                 $_.Movie | ConvertTo-TraktMovie
+            } elseif ($PSCmdlet.ParameterSetName -eq 'MostPlayedMovies') {
+                $_ | ConvertTo-TraktPlayed
+            } else {
+                $_ | ConvertTo-TraktMovie
             }
         }
     }
