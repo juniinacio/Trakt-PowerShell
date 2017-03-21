@@ -1,20 +1,20 @@
 <#
 .Synopsis
-    Retrieves Seasons information from Trakt.TV.
+    Gets all season information form TraktTV.
 .DESCRIPTION
-    Retrieves Seasons information from Trakt.TV.
+    Gets all season information form TraktTV.
 .EXAMPLE
     PS C:\> Get-TraktSeason -Id "the-flash-2014" -Summary
 
     Description
     -----------
-    This example shows how to retrieve all season information for the flash from Trakt.TV.
+    This example shows how to retrieve season information for the show the flash from Trakt.TV.
 .EXAMPLE
     PS C:\> Get-TraktSeason -Id "the-flash-2014" -Season -SeasonNumber 2
     
     Description
     -----------
-    This example shows how to retrieve a single season information for the flash from Trakt.TV.
+    This example shows how to retrieve a single season information for the show the flash from Trakt.TV.
 .INPUTS
     None
 .OUTPUTS

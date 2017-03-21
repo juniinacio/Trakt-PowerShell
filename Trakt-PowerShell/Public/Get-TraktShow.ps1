@@ -1,8 +1,8 @@
 <#
 .Synopsis
-    Retrieves shows information from Trakt.TV.
+    Gets all shows information form Trakt.TV.
 .DESCRIPTION
-    Retrieves shows information from Trakt.TV.
+    Gets all shows information form Trakt.TV.
 .EXAMPLE
     PS C:\> Get-TraktShow -Popular
 
@@ -280,10 +280,10 @@ function Get-TraktShow
         
         Invoke-Trakt -Uri $uri -Method ([Microsoft.PowerShell.Commands.WebRequestMethod]::Get) -Parameters $parameters |
         ForEach-Object {
-            if ($PSBoundParameters.ContainsKey('Id')) {
-                $_ | ConvertTo-TraktShow
-            } else {
+            if ($_.Show -ne $null) {
                 $_.Show | ConvertTo-TraktShow
+            } else {
+                $_ | ConvertTo-TraktShow
             }
         }
     }

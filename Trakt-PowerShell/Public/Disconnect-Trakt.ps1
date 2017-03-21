@@ -1,14 +1,14 @@
 <#
 .SYNOPSIS
-    Creates a login session to the Trakt.TV website.
+    Disconnects the module from Trakt.TV.
 .DESCRIPTION
-    Creates a login session to the Trakt.TV website.
+    Disconnects the module from Trakt.TV.
 .EXAMPLE
-    PS C:\> Connect-Trakt
+    PS C:\> Disconnect-Trakt
 
     Description
     -----------
-    This example shows how to connect with Trakt.TV.
+    This example shows how to disconnect from Trakt.TV.
 .INPUTS
     None
 .OUTPUTS

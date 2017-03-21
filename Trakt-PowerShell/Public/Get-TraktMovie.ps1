@@ -1,8 +1,8 @@
 <#
 .Synopsis
-    Retrieves movie information from Trakt.TV.
+    Gets all movies information from Trakt.TV.
 .DESCRIPTION
-    Retrieves movie information from Trakt.TV.
+    Gets all movies information from Trakt.TV.
 .EXAMPLE
     PS C:\> Get-TraktMovie -Played
     

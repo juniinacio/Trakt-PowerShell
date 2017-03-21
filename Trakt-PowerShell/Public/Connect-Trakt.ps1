@@ -1,8 +1,8 @@
 <#
 .SYNOPSIS
-    Creates a login session to the Trakt.TV website.
+    Connects the module to Trakt.TV.
 .DESCRIPTION
-    Creates a login session to the Trakt.TV website.
+    Connects the module to Trakt.TV.
 .EXAMPLE
     PS C:\> Connect-Trakt
 

@@ -1,8 +1,8 @@
 <#
 .Synopsis
-    Retrieves last activity information from Trakt.TV.
+    Gets last activity from Trakt.TV.
 .DESCRIPTION
-    Retrieves last activity information from Trakt.TV.
+    Gets last activity from Trakt.TV.
 .EXAMPLE
     PS C:\> Get-TraktLastActivity
     

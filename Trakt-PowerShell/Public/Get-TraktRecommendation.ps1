@@ -1,18 +1,20 @@
 <#
 .Synopsis
-    Retrieves people information from Trakt.TV.
+    Gets all recommendations from Trakt.TV.
 .DESCRIPTION
-    Retrieves people information from Trakt.TV.
+    Gets all recommendations from Trakt.TV.
 .EXAMPLE
-    PS C:\> Get-Watched -Summary -Id "bryan-cranston"
+    PS C:\> Get-TraktRecommendation -Movies
+    
     Description
     -----------
-    This example shows how to retrieve information over Bryan Cranston.
+    This example shows how to retrieve all movie recommendations from Trakt.TV.
 .EXAMPLE
-    PS C:\> Get-Watched -Movies -Id "bryan-cranston"
+    PS C:\> Get-TraktRecommendation -Shows
+
     Description
     -----------
-    This example shows how to retrieve the movie information for Tron Legacy.
+    This example shows how to retrieve all movie recommendations from Trakt.TV.
 .INPUTS
     None
 .OUTPUTS
@@ -58,7 +60,8 @@ function Get-TraktRecommendation
         $Id,
 
         # Extended help description
-        [Parameter(Mandatory=$false)]
+        [Parameter(Mandatory=$false, ParameterSetName='MovieRecommendations')]
+        [Parameter(Mandatory=$false, ParameterSetName='ShowRecommendations')]
         [ValidateSet('min', 'images', 'full', 'full-images', 'metadata')]
         [String]
         $Extended
@@ -66,7 +69,7 @@ function Get-TraktRecommendation
     
     process
     {
-        # LINK: http://docs.trakt.apiary.io/#reference/recommendations/movies/get-movie-recommendations
+        # LINK: http://docs.trakt.apiary.io/#reference/recommendations
         
         switch ($PSCmdlet.ParameterSetName)
         {

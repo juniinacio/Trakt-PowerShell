@@ -20,7 +20,7 @@
 .FUNCTIONALITY
     The functionality that best describes this cmdlet
 #>
-function ConvertTo-TraktPlayback {
+function ConvertTo-TraktComment {
     [CmdletBinding()]
     [OutputType([Object])]
     Param (
@@ -38,26 +38,27 @@ function ConvertTo-TraktPlayback {
         Select-Object -ExpandProperty Name
 
         $newProperties = @{
-            Progress = $InputObject.progress
-            PausedAt = $InputObject.paused_at | ConvertTo-LocalTime
-            ID = $InputObject.id
-            Type = $InputObject.type
+            Id = $InputObject.id
+            Comment = $InputObject.comment
+            Spoiler = $InputObject.spoiler
+            Review = $InputObject.review
+            ParentId = $InputObject.parent_id
+            Replies = $InputObject.replies
+            Likes = $InputObject.likes
+            UserRating = $InputObject.user_rating
+            User = $InputObject.user | ConvertTo-TraktUser
         }
 
-        if ($propertyNames -contains 'movie') {
-            $newProperties.Movie  = $InputObject.movie | ConvertTo-TraktMovie
+        if ($propertyNames -contains 'created_at') {
+            $newProperties.CreatedAt = $InputObject.created_at | ConvertTo-LocalTime
         }
 
-        if ($propertyNames -contains 'show') {
-            $newProperties.Show  = $InputObject.show | ConvertTo-TraktShow
-        }
-
-        if ($propertyNames -contains 'episode') {
-            $newProperties.Episode  = $InputObject.episode | ConvertTo-TraktEpisode -ParentObject $newProperties.Show
+        if ($propertyNames -contains 'updated_at') {
+            $newProperties.UpdatedAt = $InputObject.updated_at | ConvertTo-LocalTime
         }
 
         $psco = [PSCustomObject]$newProperties
-        $psco.PSObject.TypeNames.Insert(0, 'Trakt.Playback')
+        $psco.PSObject.TypeNames.Insert(0, 'Trakt.Comment')
         $psco
     }
 }

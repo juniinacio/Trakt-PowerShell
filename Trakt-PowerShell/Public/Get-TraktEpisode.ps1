@@ -1,8 +1,8 @@
 <#
 .Synopsis
-    Retrieves Seasons information from Trakt.TV.
+    Gets episodes information from Trakt.TV.
 .DESCRIPTION
-    Retrieves Seasons information from Trakt.TV.
+    Gets episodes information from Trakt.TV.
 .EXAMPLE
     PS C:\> Get-TraktEpisode -Summary -Id "the-flash-2014" -SeasonNumber 2 -EpisodeNumber 1 -Extended full
     
@@ -101,14 +101,8 @@ function Get-TraktEpisode
         [string]
         $Language,
 
-        # Sort help description
-        [Parameter(Mandatory=$false, ParameterSetName='AllEpisodeComments')]
-        [ValidateSet('newest', 'oldest', 'likes', 'replies')]
-        [String]
-        $Sort,
-
         # Type help description
-        [Parameter(Mandatory=$false, ParameterSetName='ListsContianingThisShow')]
+        [Parameter(Mandatory=$false, ParameterSetName='ListsContainingThisEpisode')]
         [ValidateSet('all', 'personal', 'official', 'watchlists')]
         [String]
         $Type,
@@ -120,13 +114,42 @@ function Get-TraktEpisode
         $Extended
     )
 
+    DynamicParam {
+        if ($PSCmdlet.ParameterSetName -eq 'AllEpisodeComments' -or $PSCmdlet.ParameterSetName -eq 'ListsContainingThisEpisode') {
+            $parameterName = 'Sort'
+
+            $runtimeDefinedParameterDictionary = New-Object -TypeName 'System.Management.Automation.RuntimeDefinedParameterDictionary'
+
+            $attributeCollection = New-Object -TypeName 'System.Collections.ObjectModel.Collection[System.Attribute]'
+
+            $parameterAttribute = New-Object -TypeName 'System.Management.Automation.ParameterAttribute'
+            $parameterAttribute.Mandatory = $false
+
+            $attributeCollection.Add($parameterAttribute)
+
+            if ($PSCmdlet.ParameterSetName -eq 'AllEpisodeComments') {
+                $validValues = 'newest', 'oldest', 'likes', 'replies'
+            } else {
+                $validValues = 'popular', 'likes', 'comments', 'items', 'added', 'updated'
+            }
+            $validateSetAttribute = New-Object -TypeName 'System.Management.Automation.ValidateSetAttribute' -ArgumentList $validValues
+
+            $attributeCollection.Add($validateSetAttribute)
+
+            $runtimeDefinedParameter = New-Object -TypeName 'System.Management.Automation.RuntimeDefinedParameter' -ArgumentList ($parameterName, [string], $attributeCollection)
+            $runtimeDefinedParameterDictionary.Add($parameterName, $runtimeDefinedParameter)
+
+            $runtimeDefinedParameterDictionary
+        }
+    }
+
     begin {
         $parentObject = Get-TraktSeason -Id $Id -Summary | Where-Object { $_.Number -eq $SeasonNumber }
     }
     
     process
     {
-        # LINK: http://docs.trakt.apiary.io/#reference/movies
+        # LINK: http://docs.trakt.apiary.io/#reference/episodes
         
         switch ($PSCmdlet.ParameterSetName)
         {
@@ -177,7 +200,19 @@ function Get-TraktEpisode
         
         Invoke-Trakt -Uri $uri -Method ([Microsoft.PowerShell.Commands.WebRequestMethod]::Get) -Parameters $parameters |
         ForEach-Object {
-            $_ | ConvertTo-TraktEpisode -ParentObject $parentObject
+            if ($PSCmdlet.ParameterSetName -eq 'AllEpisodeComments') {
+                $_ | ConvertTo-TraktComment
+            } elseif ($PSCmdlet.ParameterSetName -eq 'ListsContainingThisEpisode') {
+                $_ | ConvertTo-TraktList
+            } elseif ($PSCmdlet.ParameterSetName -eq 'EpisodeRatings') {
+                $_ | ConvertTo-TraktRating
+            } elseif ($PSCmdlet.ParameterSetName -eq 'EpisodeStats') {
+                $_ | ConvertTo-TraktStats
+            } elseif ($PSCmdlet.ParameterSetName -eq 'UsersWatchingRightNow') {
+                $_ | ConvertTo-TraktUser
+            } else {
+                $_ | ConvertTo-TraktEpisode -ParentObject $parentObject
+            }
         }
     }
 }

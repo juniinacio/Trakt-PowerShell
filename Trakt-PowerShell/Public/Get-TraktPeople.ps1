@@ -1,14 +1,14 @@
 <#
 .Synopsis
-    Retrieves people information from Trakt.TV.
+    Gets all peoples information from Trakt.TV.
 .DESCRIPTION
-    Retrieves people information from Trakt.TV.
+    Gets all peoples information from Trakt.TV.
 .EXAMPLE
     PS C:\> Get-TraktPeople -Summary -Id "bryan-cranston"
 
     Description
     -----------
-    This example shows how to retrieve information over Bryan Cranston form Trakt.TV.
+    This example shows how to retrieve people information over Bryan Cranston form Trakt.TV.
 .EXAMPLE
     PS C:\> Get-TraktPeople -Movies -Id "bryan-cranston"
 
@@ -16,7 +16,7 @@
     -----------
     This example shows how to retrieve the movie credits for Bryan Cranston from Trakt.TV.
 .EXAMPLE
-    PS C:\> Get-TraktPeople -Shows -Id 1409
+    PS C:\> Get-TraktPeople -Shows -Id "bryan-cranston"
 
     Description
     -----------

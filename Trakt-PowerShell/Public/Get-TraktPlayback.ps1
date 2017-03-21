@@ -1,8 +1,8 @@
 <#
 .Synopsis
-    Retrieves people information from Trakt.TV.
+    Gets all playback information from Trakt.TV.
 .DESCRIPTION
-    Retrieves people information from Trakt.TV.
+    Gets all playback information from Trakt.TV.
 .EXAMPLE
     PS C:\> Get-TraktPlayback -Type movies
     

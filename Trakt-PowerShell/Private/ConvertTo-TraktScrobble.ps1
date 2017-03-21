@@ -43,12 +43,12 @@ function ConvertTo-TraktScrobble {
             Sharing = $InputObject.sharing   
         }
 
-        if ($propertyNames -contains 'episode') {
-            $newProperties.Episode = $InputObject.episode | ConvertTo-TraktEpisode
-        }
-
         if ($propertyNames -contains 'show') {
             $newProperties.Show = $InputObject.show | ConvertTo-TraktShow
+        }
+
+        if ($propertyNames -contains 'episode') {
+            $newProperties.Episode = $InputObject.episode | ConvertTo-TraktEpisode -ParentObject $newProperties.Show
         }
 
         if ($propertyNames -contains 'movie') {

@@ -20,7 +20,7 @@
 .FUNCTIONALITY
     The functionality that best describes this cmdlet
 #>
-function ConvertTo-TraktPlayback {
+function ConvertTo-TraktList {
     [CmdletBinding()]
     [OutputType([Object])]
     Param (
@@ -38,26 +38,30 @@ function ConvertTo-TraktPlayback {
         Select-Object -ExpandProperty Name
 
         $newProperties = @{
-            Progress = $InputObject.progress
-            PausedAt = $InputObject.paused_at | ConvertTo-LocalTime
-            ID = $InputObject.id
-            Type = $InputObject.type
+            Name = $InputObject.name
+            Description = $InputObject.description
+            Privacy = $InputObject.privacy
+            DisplayNumbers = $InputObject.display_numbers
+            AllowComments = $InputObject.allow_comments
+            SortBy = $InputObject.sort_by
+            SortHow = $InputObject.sort_how
+            ItemCount = $InputObject.item_count
+            CommentCount = $InputObject.comment_count
+            Likes = $InputObject.likes
+            IDs = $InputObject.ids
+            User = $InputObject.user | ConvertTo-TraktUser
         }
 
-        if ($propertyNames -contains 'movie') {
-            $newProperties.Movie  = $InputObject.movie | ConvertTo-TraktMovie
+        if ($propertyNames -contains 'created_at') {
+            $newProperties.CreatedAt = $InputObject.created_at | ConvertTo-LocalTime
         }
 
-        if ($propertyNames -contains 'show') {
-            $newProperties.Show  = $InputObject.show | ConvertTo-TraktShow
-        }
-
-        if ($propertyNames -contains 'episode') {
-            $newProperties.Episode  = $InputObject.episode | ConvertTo-TraktEpisode -ParentObject $newProperties.Show
+        if ($propertyNames -contains 'updated_at') {
+            $newProperties.UpdatedAt = $InputObject.updated_at | ConvertTo-LocalTime
         }
 
         $psco = [PSCustomObject]$newProperties
-        $psco.PSObject.TypeNames.Insert(0, 'Trakt.Playback')
+        $psco.PSObject.TypeNames.Insert(0, 'Trakt.List')
         $psco
     }
 }
