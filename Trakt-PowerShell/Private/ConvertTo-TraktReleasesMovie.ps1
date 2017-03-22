@@ -20,7 +20,7 @@
 .FUNCTIONALITY
     The functionality that best describes this cmdlet
 #>
-function ConvertTo-TraktCast {
+function ConvertTo-TraktReleasesMovie {
     [CmdletBinding()]
     [OutputType([Object])]
     Param (
@@ -29,6 +29,10 @@ function ConvertTo-TraktCast {
         [ValidateNotNull()]
         $InputObject
     )
+
+    begin {
+        $textInfo = (Get-Culture).TextInfo
+    }
     
     process {
         $propertyNames = $InputObject | Get-Member -MemberType properties |
@@ -38,12 +42,15 @@ function ConvertTo-TraktCast {
         Select-Object -ExpandProperty Name
 
         $newProperties = @{
-            Character = $InputObject.character
-            Person = $InputObject.person | ConvertTo-TraktPerson
+            Country = $InputObject.country
+            Certification = $InputObject.certification
+            ReleaseDate = $InputObject.release_date
+            ReleaseType = $textInfo.ToTitleCase($InputObject.release_type)
+            Note = $InputObject.note
         }
 
         $psco = [PSCustomObject]$newProperties
-        $psco.PSObject.TypeNames.Insert(0, 'Trakt.Cast')
+        $psco.PSObject.TypeNames.Insert(0, 'Trakt.Releases.Movie')
         $psco
     }
 }

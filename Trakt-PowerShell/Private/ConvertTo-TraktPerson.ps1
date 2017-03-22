@@ -20,7 +20,7 @@
 .FUNCTIONALITY
     The functionality that best describes this cmdlet
 #>
-function ConvertTo-TraktCast {
+function ConvertTo-TraktPerson {
     [CmdletBinding()]
     [OutputType([Object])]
     Param (
@@ -31,19 +31,13 @@ function ConvertTo-TraktCast {
     )
     
     process {
-        $propertyNames = $InputObject | Get-Member -MemberType properties |
-        Where-Object {
-            $_.MemberType -eq 'Property' -or $_.MemberType -eq 'NoteProperty'
-        } |
-        Select-Object -ExpandProperty Name
-
         $newProperties = @{
-            Character = $InputObject.character
-            Person = $InputObject.person | ConvertTo-TraktPerson
+            Name = $InputObject.name
+            IDs = $InputObject.ids
         }
 
         $psco = [PSCustomObject]$newProperties
-        $psco.PSObject.TypeNames.Insert(0, 'Trakt.Cast')
+        $psco.PSObject.TypeNames.Insert(0, 'Trakt.Person')
         $psco
     }
 }

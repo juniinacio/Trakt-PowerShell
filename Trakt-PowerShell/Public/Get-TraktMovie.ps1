@@ -151,7 +151,7 @@ function Get-TraktMovie
         $Country,
         
         # Country help description
-        [Parameter(Mandatory=$true, ParameterSetName='AllMovieTranslations')]
+        [Parameter(Mandatory=$false, ParameterSetName='AllMovieTranslations')]
         [ValidateScript({$_.Length -eq 2})]
         [String]
         $Language,
@@ -167,7 +167,7 @@ function Get-TraktMovie
         [Parameter(Mandatory=$false, ParameterSetName='MostCollectedMovies')]
         [ValidateSet('weekly', 'monthly', 'yearly', 'all')]
         [String]
-        $Period,
+        $Period = 'weekly',
 
         # Type help description
         [Parameter(Mandatory=$false, ParameterSetName='ListsContainingThisMovie')]
@@ -238,8 +238,20 @@ function Get-TraktMovie
             }
             ASingleMovie { $uri = 'movies/{0}' -f $Id }
             AllMovieAliases { $uri = 'movies/{0}/aliases' -f $Id }
-            AllMovieReleases { $uri = 'movies/{0}/releases/{2}' -f $Id, $Country }
-            AllMovieTranslations { $uri = 'movies/{0}/translations/{2}' -f $Id, $Language }
+            AllMovieReleases {
+                if ($PSBoundParameters.ContainsKey('Country')) {
+                    $uri = 'movies/{0}/releases/{1}' -f $Id, $Country
+                } else {
+                    $uri = 'movies/{0}/releases' -f $Id
+                }
+            }
+            AllMovieTranslations {
+                if ($PSBoundParameters.ContainsKey('Language')) {
+                    $uri = 'movies/{0}/translations/{2}' -f $Id, $Language
+                } else {
+                    $uri = 'movies/{0}/translations' -f $Id
+                }
+            }
             AllMovieComments { $uri = 'movies/{0}/comments' -f $Id }
             ListsContainingThisMovie {
                 if ($PSBoundParameters.ContainsKey('Type')) {
@@ -276,9 +288,33 @@ function Get-TraktMovie
         Invoke-Trakt -Uri $uri -Method ([Microsoft.PowerShell.Commands.WebRequestMethod]::Get) -Parameters $parameters |
         ForEach-Object {
             if ($PSCmdlet.ParameterSetName -eq 'TrendingMovies') {
-                $_.Movie | ConvertTo-TraktMovie
+                $_ | ConvertTo-TraktTrendingMovie
             } elseif ($PSCmdlet.ParameterSetName -eq 'MostPlayedMovies') {
                 $_ | ConvertTo-TraktPlayedMovie
+            } elseif ($PSCmdlet.ParameterSetName -eq 'MostWatchedMovies' -or $PSCmdlet.ParameterSetName -eq 'MostCollectedMovies') {
+                $_ | ConvertTo-TraktWatchedMovie
+            } elseif ($PSCmdlet.ParameterSetName -eq 'MostAnticipatedMovies') {
+                $_ | ConvertTo-TraktAnticipatedMovie
+            } elseif ($PSCmdlet.ParameterSetName -eq 'TheWeekendBoxOffice') {
+                $_ | ConvertTo-TraktBoxOfficeMovie
+            } elseif ($PSCmdlet.ParameterSetName -eq 'RecentlyUpdatedMovies') {
+                $_ | ConvertTo-TraktUpdatedMovie
+            } elseif ($PSCmdlet.ParameterSetName -eq 'AllMovieAliases') {
+                $_ | ConvertTo-TraktAliasesMovie
+            } elseif ($PSCmdlet.ParameterSetName -eq 'AllMovieReleases') {
+                $_ | ConvertTo-TraktReleasesMovie
+            } elseif ($PSCmdlet.ParameterSetName -eq 'AllMovieTranslations') {
+                $_ | ConvertTo-TraktTranslationsMovie
+            } elseif ($PSCmdlet.ParameterSetName -eq 'AllMovieComments') {
+                $_ | ConvertTo-TraktComment
+            } elseif ($PSCmdlet.ParameterSetName -eq 'ListsContainingThisMovie') {
+                $_ | ConvertTo-TraktList
+            } elseif ($PSCmdlet.ParameterSetName -eq 'AllPeopleForAMovie') {
+                $_.Cast | ConvertTo-TraktCast
+            } elseif ($PSCmdlet.ParameterSetName -eq 'MovieRatings') {
+                $_ | ConvertTo-TraktRating
+            } elseif ($PSCmdlet.ParameterSetName -eq 'MovieStats') {
+                $_ | ConvertTo-TraktStats
             } else {
                 $_ | ConvertTo-TraktMovie
             }
