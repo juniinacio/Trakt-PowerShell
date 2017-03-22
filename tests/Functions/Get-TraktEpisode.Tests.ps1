@@ -6,7 +6,7 @@ InModuleScope Trakt-PowerShell {
             Connect-Trakt | Out-Null
         }
 
-        It "Get a single episode for a show " {
+        It "Get a single episode for a show" {
             $episode = Get-TraktEpisode -Summary -Id "the-flash" -SeasonNumber 1 -EpisodeNumber 1
 
             $episode.Title | Should Be "City of Heroes"

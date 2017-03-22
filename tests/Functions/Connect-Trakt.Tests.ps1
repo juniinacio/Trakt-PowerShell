@@ -9,14 +9,14 @@ InModuleScope Trakt-PowerShell {
             }
         }
 
-        It "Exchange code for access_token" {
+        It "Exchange code for access token" {
             $token = Connect-Trakt
 
             $Script:ACCESS_TOKEN_PATH | Should Exist
             $token | Should Not BeNullOrEmpty
         }
 
-        It "Exchange refresh_token for access_token " {
+        It "Exchange refresh token for access token" {
             $epoch = Get-Date -Date "01/01/1970"
             $yesterday = (Get-Date).AddDays(-1)
             $seconds = [int](New-TimeSpan -Start $epoch -End $yesterday).TotalSeconds

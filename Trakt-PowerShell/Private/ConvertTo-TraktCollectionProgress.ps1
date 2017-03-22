@@ -20,7 +20,7 @@
 .FUNCTIONALITY
     The functionality that best describes this cmdlet
 #>
-function ConvertTo-TraktEpisode {
+function ConvertTo-TraktCollectionProgress {
     [CmdletBinding()]
     [OutputType([Object])]
     Param (
@@ -30,7 +30,7 @@ function ConvertTo-TraktEpisode {
         $InputObject,
 
         # Param1 help description
-        [Parameter(Mandatory=$false)]
+        [Parameter(Mandatory=$true)]
         [ValidateNotNull()]
         $ParentObject
     )
@@ -43,29 +43,22 @@ function ConvertTo-TraktEpisode {
         Select-Object -ExpandProperty Name
 
         $newProperties = @{
-            Season = $InputObject.season
-            Number = $InputObject.number
-            Title = $InputObject.title
-            IDs = $InputObject.ids
-            NumberABS  = $InputObject.number_abs
-            Overview  = $InputObject.overview
-            Rating  = $InputObject.rating
-            Votes  = $InputObject.votes
-            AvailableTranslations  = $InputObject.available_translations
-            Runtime  = $InputObject.runtime
-            Parent = $ParentObject
+            Aired = $InputObject.aired
+            Completed = $InputObject.completed
+            Seasons = $InputObject.seasons | ConvertTo-TraktSeason -ParentObject $ParentObject
+            HiddenSeasons = $InputObject.hidden_seasons
+            NextEpisode = $InputObject.next_episode
+            LastCollectedAt = ''
         }
 
-        if ($propertyNames -contains 'first_aired') {
-            $newProperties.FirstAired  = $InputObject.first_aired | ConvertTo-LocalTime
-        }
-
-        if ($propertyNames -contains 'updated_at') {
-            $newProperties.UpdatedAt  = $InputObject.updated_at | ConvertTo-LocalTime
-        }
+        if ($propertyNames -contains 'last_collected_at') {
+            if (-not [string]::IsNullOrEmpty($InputObject.last_collected_at)) {
+                $newProperties.LastCollectedAt = $InputObject.last_collected_at | ConvertTo-LocalTime
+            }
+        }        
 
         $psco = [PSCustomObject]$newProperties
-        $psco.PSObject.TypeNames.Insert(0, 'Trakt.Episode')
+        $psco.PSObject.TypeNames.Insert(0, 'Trakt.Collection.Progess')
         $psco
     }
 }

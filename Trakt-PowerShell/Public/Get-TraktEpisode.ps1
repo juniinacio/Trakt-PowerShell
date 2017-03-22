@@ -139,7 +139,7 @@ function Get-TraktEpisode
             $runtimeDefinedParameter = New-Object -TypeName 'System.Management.Automation.RuntimeDefinedParameter' -ArgumentList ($parameterName, [string], $attributeCollection)
             $runtimeDefinedParameterDictionary.Add($parameterName, $runtimeDefinedParameter)
 
-            $runtimeDefinedParameterDictionary
+            return $runtimeDefinedParameterDictionary
         }
     }
 

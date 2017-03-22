@@ -165,7 +165,7 @@ function Get-TraktShow
         $Country,
         
         # Country help description
-        [Parameter(Mandatory=$true, ParameterSetName='AllShowTranslations')]
+        [Parameter(Mandatory=$false, ParameterSetName='AllShowTranslations')]
         [ValidateScript({$_.Length -eq 2})]
         [String]
         $Language,
@@ -181,7 +181,7 @@ function Get-TraktShow
         [Parameter(Mandatory=$false, ParameterSetName='MostCollectedShows')]
         [ValidateSet('weekly', 'monthly', 'yearly', 'all')]
         [String]
-        $Period,
+        $Period = 'weekly',
 
         # Type help description
         [Parameter(Mandatory=$false, ParameterSetName='ListsContianingThisShow')]
@@ -189,12 +189,23 @@ function Get-TraktShow
         [String]
         $Type,
 
-        # Sort help description
-        [Parameter(Mandatory=$false, ParameterSetName='MostPlayedShows')]
-        [Parameter(Mandatory=$false, ParameterSetName='ListsContianingThisShow')]
-        [ValidateSet('newest', 'oldest', 'likes', 'replies')]
-        [String]
-        $Sort,
+        # Hidden help description
+        [Parameter(Mandatory=$false, ParameterSetName='ShowCollectionProgress')]
+        [Parameter(Mandatory=$false, ParameterSetName='ShowWatchedProgress')]
+        [Switch]
+        $Hidden,
+
+        # Specials help description
+        [Parameter(Mandatory=$false, ParameterSetName='ShowCollectionProgress')]
+        [Parameter(Mandatory=$false, ParameterSetName='ShowWatchedProgress')]
+        [Switch]
+        $Specials,
+
+        # CountSpecials help description
+        [Parameter(Mandatory=$false, ParameterSetName='ShowCollectionProgress')]
+        [Parameter(Mandatory=$false, ParameterSetName='ShowWatchedProgress')]
+        [Switch]
+        $CountSpecials,
         
         # Page help description
         [Parameter(Mandatory=$false)]
@@ -212,6 +223,43 @@ function Get-TraktShow
         [String]
         $Extended = 'min'
     )
+
+    DynamicParam {
+        if ($PSCmdlet.ParameterSetName -eq 'AllShowComments' -or $PSCmdlet.ParameterSetName -eq 'ListsContianingThisShow') {
+            $parameterName = 'Sort'
+
+            $runtimeDefinedParameterDictionary = New-Object -TypeName 'System.Management.Automation.RuntimeDefinedParameterDictionary'
+
+            $attributeCollection = New-Object -TypeName 'System.Collections.ObjectModel.Collection[System.Attribute]'
+
+            $parameterAttribute = New-Object -TypeName 'System.Management.Automation.ParameterAttribute'
+            $parameterAttribute.Mandatory = $false
+
+            $attributeCollection.Add($parameterAttribute)
+
+            if ($PSCmdlet.ParameterSetName -eq 'AllShowComments') {
+                $validValues = 'newest', 'oldest', 'likes', 'replies'
+            } else {
+                $validValues = 'popular', 'likes', 'comments', 'items', 'added', 'updated'
+            }
+            $validateSetAttribute = New-Object -TypeName 'System.Management.Automation.ValidateSetAttribute' -ArgumentList $validValues
+
+            $attributeCollection.Add($validateSetAttribute)
+
+            $runtimeDefinedParameter = New-Object -TypeName 'System.Management.Automation.RuntimeDefinedParameter' -ArgumentList ($parameterName, [string], $attributeCollection)
+            $runtimeDefinedParameterDictionary.Add($parameterName, $runtimeDefinedParameter)
+
+            return $runtimeDefinedParameterDictionary
+        }
+    }
+
+    begin {
+        if ($PSCmdlet.ParameterSetName -eq 'ShowCollectionProgress' -or $PSCmdlet.ParameterSetName -eq 'ShowWatchedProgress') {
+            $parentObject = Get-TraktShow -Id 'game-of-thrones' -Summary
+        } else {
+            $parentObject = $null
+        }
+    }
     
     process
     {
@@ -234,7 +282,7 @@ function Get-TraktShow
             }
             ASingleShow { $uri = 'shows/{0}' -f $Id }
             AllShowAliases { $uri = 'shows/{0}/aliases' -f $Id }
-            AllShowTranslations { $uri = 'shows/{0}/translations/{2}' -f $Id, $Language }
+            AllShowTranslations { $uri = 'shows/{0}/translations/{1}' -f $Id, $Language }
             AllShowComments {
                 if ($PSBoundParameters.ContainsKey('Sort')) {
                     $uri = 'shows/{0}/comments/{1}' -f $Id, $Sort
@@ -265,6 +313,18 @@ function Get-TraktShow
         }
         
         $parameters = @{}
+
+        if ($PSBoundParameters.ContainsKey("Hidden")) {
+            $parameters.hidden = 'true'
+        }
+
+        if ($PSBoundParameters.ContainsKey("Specials")) {
+            $parameters.specials = 'true'
+        }
+
+        if ($PSBoundParameters.ContainsKey("CountSpecials")) {
+            $parameters.count_specials = 'true'
+        }
         
         if ($PSBoundParameters.ContainsKey("Page")) {
             $parameters.page = $Page
@@ -280,10 +340,38 @@ function Get-TraktShow
         
         Invoke-Trakt -Uri $uri -Method ([Microsoft.PowerShell.Commands.WebRequestMethod]::Get) -Parameters $parameters |
         ForEach-Object {
-            if ($_.Show -ne $null -and $PSCmdlet.ParameterSetName -ne 'MostPlayedShows') {
-                $_.Show | ConvertTo-TraktShow
+            if ($PSCmdlet.ParameterSetName -eq 'TrendingShows') {
+                $_ | ConvertTo-TraktTrendingShow
             } elseif ($PSCmdlet.ParameterSetName -eq 'MostPlayedShows') {
                 $_ | ConvertTo-TraktPlayedShow
+            } elseif ($PSCmdlet.ParameterSetName -eq 'MostWatchedShows' -or $PSCmdlet.ParameterSetName -eq 'MostCollectedShows') {
+                $_ | ConvertTo-TraktWatchedShow
+            } elseif ($PSCmdlet.ParameterSetName -eq 'MostAnticipatedShows') {
+                $_ | ConvertTo-TraktAnticipatedShow
+            } elseif ($PSCmdlet.ParameterSetName -eq 'RecentlyUpdatedShows') {
+                $_ | ConvertTo-TraktUpdatedShow
+            } elseif ($PSCmdlet.ParameterSetName -eq 'AllShowAliases') {
+                $_ | ConvertTo-TraktAliasesShow
+            } elseif ($PSCmdlet.ParameterSetName -eq 'AllShowTranslations') {
+                $_ | ConvertTo-TraktTranslationsShow
+            } elseif ($PSCmdlet.ParameterSetName -eq 'AllShowComments') {
+                $_ | ConvertTo-TraktComment
+            } elseif ($PSCmdlet.ParameterSetName -eq 'ListsContianingThisShow') {
+                $_ | ConvertTo-TraktList
+            } elseif ($PSCmdlet.ParameterSetName -eq 'ShowCollectionProgress') {
+                $_ | ConvertTo-TraktCollectionProgress -ParentObject $parentObject
+            } elseif ($PSCmdlet.ParameterSetName -eq 'ShowWatchedProgress') {
+                $_ | ConvertTo-TraktWatchedProgress -ParentObject $parentObject
+            } elseif ($PSCmdlet.ParameterSetName -eq 'AllPeopleForAShow') {
+                $_.Cast | ConvertTo-TraktCast
+            } elseif ($PSCmdlet.ParameterSetName -eq 'ShowRatings') {
+                $_ | ConvertTo-TraktRating
+            } elseif ($PSCmdlet.ParameterSetName -eq 'ShowStats') {
+                $_ | ConvertTo-TraktStats
+            } elseif ($PSCmdlet.ParameterSetName -eq 'NextEpisode') {
+                $_ #| ConvertTo-TraktEpisode
+            } elseif ($PSCmdlet.ParameterSetName -eq 'LastEpisode') {
+                $_ | ConvertTo-TraktEpisode
             } else {
                 $_ | ConvertTo-TraktShow
             }

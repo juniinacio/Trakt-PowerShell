@@ -55,7 +55,7 @@ InModuleScope Trakt-PowerShell {
             ($watching | Measure-Object).Count | Should Not Be 0
             $watching | Where-Object { $_.UserName -eq 'juni.inacio' } | Should Not BeNullOrEmpty
 
-            Stop-TraktScrobble -Episode $episode -Progress 100
+            # Stop-TraktScrobble -Episode $episode -Progress 100
         }
 
         AfterAll {

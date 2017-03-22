@@ -20,19 +20,14 @@
 .FUNCTIONALITY
     The functionality that best describes this cmdlet
 #>
-function ConvertTo-TraktEpisode {
+function ConvertTo-TraktTrendingShow {
     [CmdletBinding()]
     [OutputType([Object])]
     Param (
         # Param1 help description
         [Parameter(Mandatory=$true, ValueFromPipeline=$true, ValueFromPipelineByPropertyName=$true)]
         [ValidateNotNull()]
-        $InputObject,
-
-        # Param1 help description
-        [Parameter(Mandatory=$false)]
-        [ValidateNotNull()]
-        $ParentObject
+        $InputObject
     )
     
     process {
@@ -43,29 +38,15 @@ function ConvertTo-TraktEpisode {
         Select-Object -ExpandProperty Name
 
         $newProperties = @{
-            Season = $InputObject.season
-            Number = $InputObject.number
-            Title = $InputObject.title
-            IDs = $InputObject.ids
-            NumberABS  = $InputObject.number_abs
-            Overview  = $InputObject.overview
-            Rating  = $InputObject.rating
-            Votes  = $InputObject.votes
-            AvailableTranslations  = $InputObject.available_translations
-            Runtime  = $InputObject.runtime
-            Parent = $ParentObject
+            Watchers = $InputObject.watchers
         }
 
-        if ($propertyNames -contains 'first_aired') {
-            $newProperties.FirstAired  = $InputObject.first_aired | ConvertTo-LocalTime
-        }
-
-        if ($propertyNames -contains 'updated_at') {
-            $newProperties.UpdatedAt  = $InputObject.updated_at | ConvertTo-LocalTime
+        if ($propertyNames -contains 'show') {
+            $newProperties.Show = $InputObject.show | ConvertTo-TraktShow
         }
 
         $psco = [PSCustomObject]$newProperties
-        $psco.PSObject.TypeNames.Insert(0, 'Trakt.Episode')
+        $psco.PSObject.TypeNames.Insert(0, 'Trakt.Trending.Show')
         $psco
     }
 }

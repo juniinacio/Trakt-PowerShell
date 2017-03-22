@@ -1041,9 +1041,93 @@
 		</View>
 
 		<View>
+			<Name>Trakt.Watched.Show</Name>
+			<ViewSelectedBy>
+				<TypeName>Trakt.Watched.Show</TypeName>
+			</ViewSelectedBy>
+
+			<TableControl>
+				<TableHeaders>
+					<TableColumnHeader>
+						<Label>WatcherCount</Label>
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<Label>CollectedCount</Label>
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<Label>PlayCount</Label>
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<Label>Title</Label>
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<Label>Year</Label>
+					</TableColumnHeader>
+				</TableHeaders>
+				<TableRowEntries>
+					<TableRowEntry>
+						<TableColumnItems>
+							<TableColumnItem>
+								<PropertyName>WatcherCount</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>CollectedCount</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>PlayCount</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>Title</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>Year</PropertyName>
+							</TableColumnItem>
+						</TableColumnItems>
+					</TableRowEntry>
+				</TableRowEntries>
+			</TableControl>
+		</View>
+
+		<View>
 			<Name>Trakt.Anticipated.Movie</Name>
 			<ViewSelectedBy>
 				<TypeName>Trakt.Anticipated.Movie</TypeName>
+			</ViewSelectedBy>
+
+			<TableControl>
+				<TableHeaders>
+					<TableColumnHeader>
+						<Label>ListCount</Label>
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<Label>Title</Label>
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<Label>Year</Label>
+					</TableColumnHeader>
+				</TableHeaders>
+				<TableRowEntries>
+					<TableRowEntry>
+						<TableColumnItems>
+							<TableColumnItem>
+								<PropertyName>ListCount</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>Title</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>Year</PropertyName>
+							</TableColumnItem>
+						</TableColumnItems>
+					</TableRowEntry>
+				</TableRowEntries>
+			</TableControl>
+		</View>
+
+		<View>
+			<Name>Trakt.Anticipated.Show</Name>
+			<ViewSelectedBy>
+				<TypeName>Trakt.Anticipated.Show</TypeName>
 			</ViewSelectedBy>
 
 			<TableControl>
@@ -1149,9 +1233,75 @@
 		</View>
 
 		<View>
+			<Name>Trakt.Updated.Show</Name>
+			<ViewSelectedBy>
+				<TypeName>Trakt.Updated.Show</TypeName>
+			</ViewSelectedBy>
+
+			<TableControl>
+				<TableHeaders>
+					<TableColumnHeader>
+						<Label>UpdatedAt</Label>
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<Label>Title</Label>
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<Label>Year</Label>
+					</TableColumnHeader>
+				</TableHeaders>
+				<TableRowEntries>
+					<TableRowEntry>
+						<TableColumnItems>
+							<TableColumnItem>
+								<PropertyName>UpdatedAt</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>Title</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>Year</PropertyName>
+							</TableColumnItem>
+						</TableColumnItems>
+					</TableRowEntry>
+				</TableRowEntries>
+			</TableControl>
+		</View>
+
+		<View>
 			<Name>Trakt.Aliases.Movie</Name>
 			<ViewSelectedBy>
 				<TypeName>Trakt.Aliases.Movie</TypeName>
+			</ViewSelectedBy>
+
+			<TableControl>
+				<TableHeaders>
+					<TableColumnHeader>
+						<Label>Title</Label>
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<Label>Country</Label>
+					</TableColumnHeader>
+				</TableHeaders>
+				<TableRowEntries>
+					<TableRowEntry>
+						<TableColumnItems>
+							<TableColumnItem>
+								<PropertyName>Title</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>Country</PropertyName>
+							</TableColumnItem>
+						</TableColumnItems>
+					</TableRowEntry>
+				</TableRowEntries>
+			</TableControl>
+		</View>
+
+		<View>
+			<Name>Trakt.Aliases.Show</Name>
+			<ViewSelectedBy>
+				<TypeName>Trakt.Aliases.Show</TypeName>
 			</ViewSelectedBy>
 
 			<TableControl>
@@ -1267,6 +1417,48 @@
 				</TableRowEntries>
 			</TableControl>
 		</View>
+		
+		<View>
+			<Name>Trakt.Translations.Show</Name>
+			<ViewSelectedBy>
+				<TypeName>Trakt.Translations.Show</TypeName>
+			</ViewSelectedBy>
+
+			<TableControl>
+				<TableHeaders>
+					<TableColumnHeader>
+						<Label>Title</Label>
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<Label>Language</Label>
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<Label>Overview</Label>
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<Label>Tagline</Label>
+					</TableColumnHeader>
+				</TableHeaders>
+				<TableRowEntries>
+					<TableRowEntry>
+						<TableColumnItems>
+							<TableColumnItem>
+								<PropertyName>Title</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>Language</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>Overview</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>Tagline</PropertyName>
+							</TableColumnItem>
+						</TableColumnItems>
+					</TableRowEntry>
+				</TableRowEntries>
+			</TableControl>
+		</View>
 
 		<View>
 			<Name>Trakt.Person</Name>
@@ -1302,6 +1494,42 @@
 			<Name>Trakt.Trending.Movie</Name>
 			<ViewSelectedBy>
 				<TypeName>Trakt.Trending.Movie</TypeName>
+			</ViewSelectedBy>
+
+			<TableControl>
+				<TableHeaders>
+					<TableColumnHeader>
+						<Label>Watchers</Label>
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<Label>Title</Label>
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<Label>Year</Label>
+					</TableColumnHeader>
+				</TableHeaders>
+				<TableRowEntries>
+					<TableRowEntry>
+						<TableColumnItems>
+							<TableColumnItem>
+								<PropertyName>Watchers</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>Title</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>Year</PropertyName>
+							</TableColumnItem>
+						</TableColumnItems>
+					</TableRowEntry>
+				</TableRowEntries>
+			</TableControl>
+		</View>
+
+		<View>
+			<Name>Trakt.Trending.Show</Name>
+			<ViewSelectedBy>
+				<TypeName>Trakt.Trending.Show</TypeName>
 			</ViewSelectedBy>
 
 			<TableControl>
