@@ -20,7 +20,7 @@
 .FUNCTIONALITY
     The functionality that best describes this cmdlet
 #>
-function ConvertTo-TraktCredits {
+function ConvertTo-TraktCreditsShow {
     [CmdletBinding()]
     [OutputType([Object])]
     Param (
@@ -40,13 +40,11 @@ function ConvertTo-TraktCredits {
         $newProperties = @{}
 
         if ($propertyNames -contains 'cast') {
-            $newProperties.Cast = $InputObject.cast | ForEach-Object {
-                $_ | ConvertTo-TraktCast
-            }
+            $newProperties.Cast = $InputObject.cast | ConvertTo-TraktCastShow
         }
 
         $psco = [PSCustomObject]$newProperties
-        $psco.PSObject.TypeNames.Insert(0, 'Trakt.Credits')
+        $psco.PSObject.TypeNames.Insert(0, 'Trakt.Credits.Show')
         $psco
     }
 }

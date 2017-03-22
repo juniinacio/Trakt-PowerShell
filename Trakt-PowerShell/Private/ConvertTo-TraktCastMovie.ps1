@@ -20,7 +20,7 @@
 .FUNCTIONALITY
     The functionality that best describes this cmdlet
 #>
-function ConvertTo-TraktPeople {
+function ConvertTo-TraktCastMovie {
     [CmdletBinding()]
     [OutputType([Object])]
     Param (
@@ -38,32 +38,15 @@ function ConvertTo-TraktPeople {
         Select-Object -ExpandProperty Name
 
         $newProperties = @{
-            Name = $InputObject.name
-            IDs = $InputObject.ids
+            Character = $InputObject.character
         }
 
-        if ($propertyNames -contains 'biography') {
-            $newProperties.Biography  = $InputObject.biography
-        }
-
-        if ($propertyNames -contains 'birthplace') {
-            $newProperties.Birthplace  = $InputObject.birthplace
-        }
-
-        if ($propertyNames -contains 'homepage') {
-            $newProperties.Homepage  = $InputObject.homepage
-        }
-
-        if (-not [string]::IsNullOrEmpty($InputObject.birthday)) {
-            $newProperties.Birthday  = [DateTime]$InputObject.birthday
-        }
-
-        if (-not [string]::IsNullOrEmpty($InputObject.death)) {
-            $newProperties.Death  = [DateTime]$InputObject.death
+        if ($propertyNames -contains 'movie') {
+            $newProperties.Movie = $InputObject.movie | ConvertTo-TraktMovie
         }
 
         $psco = [PSCustomObject]$newProperties
-        $psco.PSObject.TypeNames.Insert(0, 'Trakt.People')
+        $psco.PSObject.TypeNames.Insert(0, 'Trakt.Cast.Movie')
         $psco
     }
 }
