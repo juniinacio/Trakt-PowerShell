@@ -82,19 +82,16 @@ function Get-TraktSeason
 
         # SeasonNumber help description
         [Parameter(Mandatory=$true, ParameterSetName='SingleSeasonForAShow')]
+        [Parameter(Mandatory=$true, ParameterSetName='ListsContainingThisSeason')]
         [Parameter(Mandatory=$true, ParameterSetName='AllSeasonComments')]
         [Parameter(Mandatory=$true, ParameterSetName='SeasonRatings')]
+        [Parameter(Mandatory=$true, ParameterSetName='SeasonStats')]
+        [Parameter(Mandatory=$true, ParameterSetName='UsersWatchingRightNow')]
         [Int]
         $SeasonNumber,
 
-        # Sort help description
-        [Parameter(Mandatory=$false, ParameterSetName='AllSeasonComments')]
-        [ValidateSet('newest', 'oldest', 'likes', 'replies')]
-        [String]
-        $Sort,
-
         # Type help description
-        [Parameter(Mandatory=$false, ParameterSetName='ListsContianingThisShow')]
+        [Parameter(Mandatory=$false, ParameterSetName='ListsContainingThisSeason')]
         [ValidateSet('all', 'personal', 'official', 'watchlists')]
         [String]
         $Type,
@@ -110,6 +107,35 @@ function Get-TraktSeason
         [String]
         $Extended
     )
+
+    DynamicParam {
+        if ($PSCmdlet.ParameterSetName -eq 'AllSeasonComments' -or $PSCmdlet.ParameterSetName -eq 'ListsContainingThisSeason') {
+            $parameterName = 'Sort'
+
+            $runtimeDefinedParameterDictionary = New-Object -TypeName 'System.Management.Automation.RuntimeDefinedParameterDictionary'
+
+            $attributeCollection = New-Object -TypeName 'System.Collections.ObjectModel.Collection[System.Attribute]'
+
+            $parameterAttribute = New-Object -TypeName 'System.Management.Automation.ParameterAttribute'
+            $parameterAttribute.Mandatory = $false
+
+            $attributeCollection.Add($parameterAttribute)
+
+            if ($PSCmdlet.ParameterSetName -eq 'AllSeasonComments') {
+                $validValues = 'newest', 'oldest', 'likes', 'replies'
+            } else {
+                $validValues = 'popular', 'likes', 'comments', 'items', 'added', 'updated'
+            }
+            $validateSetAttribute = New-Object -TypeName 'System.Management.Automation.ValidateSetAttribute' -ArgumentList $validValues
+
+            $attributeCollection.Add($validateSetAttribute)
+
+            $runtimeDefinedParameter = New-Object -TypeName 'System.Management.Automation.RuntimeDefinedParameter' -ArgumentList ($parameterName, [string], $attributeCollection)
+            $runtimeDefinedParameterDictionary.Add($parameterName, $runtimeDefinedParameter)
+
+            return $runtimeDefinedParameterDictionary
+        }
+    }
 
     begin {
         if ($PSCmdlet.ParameterSetName -eq 'SingleSeasonForAShow') {
@@ -172,6 +198,16 @@ function Get-TraktSeason
         ForEach-Object {
             if ($PSCmdlet.ParameterSetName -eq 'SingleSeasonForAShow') {
                 $_ | ConvertTo-TraktEpisode -ParentObject $parentObject
+            } elseif ($PSCmdlet.ParameterSetName -eq 'AllSeasonComments') {
+                $_ | ConvertTo-TraktComment
+            } elseif ($PSCmdlet.ParameterSetName -eq 'ListsContainingThisSeason') {
+                $_ | ConvertTo-TraktList
+            } elseif ($PSCmdlet.ParameterSetName -eq 'SeasonRatings') {
+                $_ | ConvertTo-TraktRating
+            } elseif ($PSCmdlet.ParameterSetName -eq 'SeasonStats') {
+                $_ | ConvertTo-TraktStats
+            } elseif ($PSCmdlet.ParameterSetName -eq 'UsersWatchingRightNow') {
+                $_ | ConvertTo-TraktUser
             } else {
                 $_ | ConvertTo-TraktSeason -ParentObject $parentObject
             }

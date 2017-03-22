@@ -761,9 +761,6 @@
 						<Label>By</Label>
 					</TableColumnHeader>
 					<TableColumnHeader>
-						<Label>Description</Label>
-					</TableColumnHeader>
-					<TableColumnHeader>
 						<Label>CreatedAt</Label>
 					</TableColumnHeader>
 					<TableColumnHeader>
@@ -787,9 +784,6 @@
 							</TableColumnItem>
 							<TableColumnItem>
 								<PropertyName>By</PropertyName>
-							</TableColumnItem>
-							<TableColumnItem>
-								<PropertyName>Description</PropertyName>
 							</TableColumnItem>
 							<TableColumnItem>
 								<PropertyName>CreatedAt</PropertyName>
