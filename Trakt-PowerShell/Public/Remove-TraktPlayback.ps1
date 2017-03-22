@@ -48,9 +48,6 @@ function Remove-TraktPlayback
             $uri = 'sync/playback/{0}' -f $Id
         }
         
-        Invoke-Trakt -Uri $uri -Method ([Microsoft.PowerShell.Commands.WebRequestMethod]::Delete) |
-        ForEach-Object {
-            $_ | ConvertTo-TraktPlayback
-        }
+        Invoke-Trakt -Uri $uri -Method ([Microsoft.PowerShell.Commands.WebRequestMethod]::Delete)
     }
 }
