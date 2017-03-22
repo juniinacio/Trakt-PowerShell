@@ -20,7 +20,7 @@
 .FUNCTIONALITY
     The functionality that best describes this cmdlet
 #>
-function ConvertTo-TraktPlayed {
+function ConvertTo-TraktPlayedMovie {
     [CmdletBinding()]
     [OutputType([Object])]
     Param (
@@ -47,12 +47,8 @@ function ConvertTo-TraktPlayed {
             $newProperties.Movie  = $InputObject.movie | ConvertTo-TraktMovie
         }
 
-        if ($propertyNames -contains 'show') {
-            $newProperties.Show  = $InputObject.show | ConvertTo-TraktShow
-        }
-
         $psco = [PSCustomObject]$newProperties
-        $psco.PSObject.TypeNames.Insert(0, 'Trakt.Played')
+        $psco.PSObject.TypeNames.Insert(0, 'Trakt.Played.Movie')
         $psco
     }
 }

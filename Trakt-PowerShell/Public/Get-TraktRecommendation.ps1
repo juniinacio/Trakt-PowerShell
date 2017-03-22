@@ -88,9 +88,9 @@ function Get-TraktRecommendation
         Invoke-Trakt -Uri $uri -Method ([Microsoft.PowerShell.Commands.WebRequestMethod]::Get) -Parameters $parameters |
         ForEach-Object {
             if ($PSCmdlet.ParameterSetName -like '*Movie*') {
-                $_ | ConvertTo-TraktMovieRecommendation
+                $_ | ConvertTo-TraktRecommendationMovie
             } else {
-                $_ | ConvertTo-TraktShowRecommendation
+                $_ | ConvertTo-TraktRecommendationShow
             }
         }
     }

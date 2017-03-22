@@ -20,7 +20,7 @@
 .FUNCTIONALITY
     The functionality that best describes this cmdlet
 #>
-function ConvertTo-TraktShowRecommendation {
+function ConvertTo-TraktRecommendationShow {
     [CmdletBinding()]
     [OutputType([Object])]
     Param (
@@ -68,7 +68,7 @@ function ConvertTo-TraktShowRecommendation {
         }
 
         $psco = [PSCustomObject]$newProperties
-        $psco.PSObject.TypeNames.Insert(0, 'Trakt.ShowRecommendation')
+        $psco.PSObject.TypeNames.Insert(0, 'Trakt.Recommendation.Show')
         $psco
     }
 }

@@ -283,7 +283,7 @@ function Get-TraktShow
             if ($_.Show -ne $null -and $PSCmdlet.ParameterSetName -ne 'MostPlayedShows') {
                 $_.Show | ConvertTo-TraktShow
             } elseif ($PSCmdlet.ParameterSetName -eq 'MostPlayedShows') {
-                $_ | ConvertTo-TraktPlayed
+                $_ | ConvertTo-TraktPlayedShow
             } else {
                 $_ | ConvertTo-TraktShow
             }

@@ -61,9 +61,9 @@ function Get-TraktCollection
         Invoke-Trakt -Uri $uri -Method ([Microsoft.PowerShell.Commands.WebRequestMethod]::Get) -Parameters $parameters |
         ForEach-Object {
             if ($Type -eq 'movies') {
-                $_ | ConvertTo-TraktMovieCollection
+                $_ | ConvertTo-TraktCollectionMovie
             } else {
-                $_ | ConvertTo-TraktShowCollection
+                $_ | ConvertTo-TraktCollectionShow
             }
         }
     }

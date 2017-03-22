@@ -278,7 +278,7 @@ function Get-TraktMovie
             if ($PSCmdlet.ParameterSetName -eq 'TrendingMovies') {
                 $_.Movie | ConvertTo-TraktMovie
             } elseif ($PSCmdlet.ParameterSetName -eq 'MostPlayedMovies') {
-                $_ | ConvertTo-TraktPlayed
+                $_ | ConvertTo-TraktPlayedMovie
             } else {
                 $_ | ConvertTo-TraktMovie
             }

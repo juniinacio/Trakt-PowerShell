@@ -279,9 +279,9 @@
 		</View>
 
 		<View>
-			<Name>Trakt.ShowRecommendation</Name>
+			<Name>Trakt.Recommendation.Show</Name>
 			<ViewSelectedBy>
-				<TypeName>Trakt.ShowRecommendation</TypeName>
+				<TypeName>Trakt.Recommendation.Show</TypeName>
 			</ViewSelectedBy>
 
 			<TableControl>
@@ -321,9 +321,9 @@
 		</View>
 
 		<View>
-			<Name>Trakt.MovieRecommendation</Name>
+			<Name>Trakt.Recommendation.Movie</Name>
 			<ViewSelectedBy>
-				<TypeName>Trakt.MovieRecommendation</TypeName>
+				<TypeName>Trakt.Recommendation.Movie</TypeName>
 			</ViewSelectedBy>
 
 			<TableControl>
@@ -363,9 +363,9 @@
 		</View>
 
 		<View>
-			<Name>Trakt.MovieCollection</Name>
+			<Name>Trakt.Collection.Movie</Name>
 			<ViewSelectedBy>
-				<TypeName>Trakt.MovieCollection</TypeName>
+				<TypeName>Trakt.Collection.Movie</TypeName>
 			</ViewSelectedBy>
 
 			<TableControl>
@@ -399,9 +399,9 @@
 		</View>
 
 		<View>
-			<Name>Trakt.ShowCollection</Name>
+			<Name>Trakt.Collection.Show</Name>
 			<ViewSelectedBy>
-				<TypeName>Trakt.ShowCollection</TypeName>
+				<TypeName>Trakt.Collection.Show</TypeName>
 			</ViewSelectedBy>
 
 			<TableControl>
@@ -903,9 +903,57 @@
 		</View>
 
 		<View>
-			<Name>Trakt.Played</Name>
+			<Name>Trakt.Played.Movie</Name>
 			<ViewSelectedBy>
-				<TypeName>Trakt.Played</TypeName>
+				<TypeName>Trakt.Played.Movie</TypeName>
+			</ViewSelectedBy>
+
+			<TableControl>
+				<TableHeaders>
+					<TableColumnHeader>
+						<Label>WatcherCount</Label>
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<Label>CollectedCount</Label>
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<Label>PlayCount</Label>
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<Label>Title</Label>
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<Label>Year</Label>
+					</TableColumnHeader>
+				</TableHeaders>
+				<TableRowEntries>
+					<TableRowEntry>
+						<TableColumnItems>
+							<TableColumnItem>
+								<PropertyName>WatcherCount</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>CollectedCount</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>PlayCount</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>Title</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>Year</PropertyName>
+							</TableColumnItem>
+						</TableColumnItems>
+					</TableRowEntry>
+				</TableRowEntries>
+			</TableControl>
+		</View>
+
+		<View>
+			<Name>Trakt.Played.Show</Name>
+			<ViewSelectedBy>
+				<TypeName>Trakt.Played.Show</TypeName>
 			</ViewSelectedBy>
 
 			<TableControl>

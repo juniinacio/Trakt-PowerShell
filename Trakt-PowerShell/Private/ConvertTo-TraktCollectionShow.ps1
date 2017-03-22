@@ -20,7 +20,7 @@
 .FUNCTIONALITY
     The functionality that best describes this cmdlet
 #>
-function ConvertTo-TraktMovieCollection {
+function ConvertTo-TraktCollectionShow {
     [CmdletBinding()]
     [OutputType([Object])]
     Param (
@@ -38,15 +38,19 @@ function ConvertTo-TraktMovieCollection {
         Select-Object -ExpandProperty Name
 
         $newProperties = @{
-            CollectedAt = $InputObject.collected_at | ConvertTo-LocalTime
+            LastCollectedAt = $InputObject.last_collected_at | ConvertTo-LocalTime
         }
 
-        if ($propertyNames -contains 'movie') {
-            $newProperties.Movie = $InputObject.movie | ConvertTo-TraktMovie
+        if ($propertyNames -contains 'show') {
+            $newProperties.Show = $InputObject.show | ConvertTo-TraktShow
         }
+
+        if ($propertyNames -contains 'seasons') {
+            $newProperties.Seasons = $InputObject.seasons | ConvertTo-TraktSeason -ParentObject $newProperties.Show
+        }        
 
         $psco = [PSCustomObject]$newProperties
-        $psco.PSObject.TypeNames.Insert(0, 'Trakt.MovieCollection')
+        $psco.PSObject.TypeNames.Insert(0, 'Trakt.Collection.Show')
         $psco
     }
 }

@@ -20,7 +20,7 @@
 .FUNCTIONALITY
     The functionality that best describes this cmdlet
 #>
-function ConvertTo-TraktShowCollection {
+function ConvertTo-TraktRecommendationMovie {
     [CmdletBinding()]
     [OutputType([Object])]
     Param (
@@ -29,7 +29,7 @@ function ConvertTo-TraktShowCollection {
         [ValidateNotNull()]
         $InputObject
     )
-    
+
     process {
         $propertyNames = $InputObject | Get-Member -MemberType properties |
         Where-Object {
@@ -38,19 +38,29 @@ function ConvertTo-TraktShowCollection {
         Select-Object -ExpandProperty Name
 
         $newProperties = @{
-            LastCollectedAt = $InputObject.last_collected_at | ConvertTo-LocalTime
+            Title = $InputObject.title
+            Year = $InputObject.year
+            IDs = $InputObject.ids
+            Tagline = $InputObject.tagline
+            Overview = $InputObject.overview
+            Released = $InputObject.released
+            Runtime = $InputObject.runtime
+            Trailer = $InputObject.trailer
+            Homepage = $InputObject.homepage
+            Rating = $InputObject.rating
+            Votes = $InputObject.votes
+            Language = $InputObject.language
+            AvailableTranslations = $InputObject.available_translations
+            Genres = $InputObject.genres
+            Certification = $InputObject.certification
         }
 
-        if ($propertyNames -contains 'show') {
-            $newProperties.Show = $InputObject.show | ConvertTo-TraktShow
+        if ($propertyNames -contains 'updated_at') {
+            $newProperties.UpdatedAt = $InputObject.updated_at | ConvertTo-LocalTime
         }
-
-        if ($propertyNames -contains 'seasons') {
-            $newProperties.Seasons = $InputObject.seasons | ConvertTo-TraktSeason -ParentObject $newProperties.Show
-        }        
 
         $psco = [PSCustomObject]$newProperties
-        $psco.PSObject.TypeNames.Insert(0, 'Trakt.ShowCollection')
+        $psco.PSObject.TypeNames.Insert(0, 'Trakt.Recommendation.Movie')
         $psco
     }
 }
