@@ -38,26 +38,10 @@ function Get-TraktRecommendation
         [Switch]
         $Movies,
 
-        # HideMovie help description
-        [Parameter(ParameterSetName='HideAMovieRecommendation')]
-        [Switch]
-        $HideMovie,
-
         # Shows help description
         [Parameter(ParameterSetName='ShowRecommendations')]
         [Switch]
         $Shows,
-
-        # HideShow help description
-        [Parameter(ParameterSetName='HideAShowRecommendation')]
-        [Switch]
-        $HideShow,
-
-        # Id help description
-        [Parameter(Mandatory=$true, ParameterSetName='HideAMovieRecommendation')]
-        [Parameter(Mandatory=$true, ParameterSetName='HideAShowRecommendation')]
-        [String]
-        $Id,
 
         # Extended help description
         [Parameter(Mandatory=$false, ParameterSetName='MovieRecommendations')]
@@ -74,9 +58,7 @@ function Get-TraktRecommendation
         switch ($PSCmdlet.ParameterSetName)
         {
             MovieRecommendations { $uri = 'recommendations/movies' }
-            HideAMovieRecommendation { $uri = 'recommendations/movies/{0}' -f $Id }
             ShowRecommendations { $uri = 'recommendations/shows' }
-            HideAShowRecommendation { $uri = 'recommendations/shows/{0}' -f $Id }
         }
         
         $parameters = @{}
@@ -87,7 +69,7 @@ function Get-TraktRecommendation
         
         Invoke-Trakt -Uri $uri -Method ([Microsoft.PowerShell.Commands.WebRequestMethod]::Get) -Parameters $parameters |
         ForEach-Object {
-            if ($PSCmdlet.ParameterSetName -like '*Movie*') {
+            if ($PSCmdlet.ParameterSetName -like 'MovieRecommendations') {
                 $_ | ConvertTo-TraktRecommendationMovie
             } else {
                 $_ | ConvertTo-TraktRecommendationShow
