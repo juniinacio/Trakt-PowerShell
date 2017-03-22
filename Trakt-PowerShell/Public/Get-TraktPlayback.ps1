@@ -34,7 +34,7 @@ function Get-TraktPlayback
     [OutputType([PSCustomObject])]
     Param (
         # Id help description
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory=$false)]
         [ValidateSet('movies', 'episodes')]
         [String]
         $Type
@@ -44,7 +44,11 @@ function Get-TraktPlayback
     {
         # LINK: http://docs.trakt.apiary.io/#reference/sync/last-activities
         
-        $uri = 'sync/playback/{0}' -f $Type
+        if ($PSBoundParameters.ContainsKey('Type')) {
+            $uri = 'sync/playback/{0}' -f $Type
+        } else {
+            $uri = 'sync/playback'
+        }
         
         Invoke-Trakt -Uri $uri -Method ([Microsoft.PowerShell.Commands.WebRequestMethod]::Get) |
         ForEach-Object {

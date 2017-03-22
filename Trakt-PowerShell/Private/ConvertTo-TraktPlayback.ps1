@@ -40,7 +40,7 @@ function ConvertTo-TraktPlayback {
         $newProperties = @{
             Progress = $InputObject.progress
             PausedAt = $InputObject.paused_at | ConvertTo-LocalTime
-            ID = $InputObject.id
+            Id = $InputObject.id
             Type = $InputObject.type
         }
 

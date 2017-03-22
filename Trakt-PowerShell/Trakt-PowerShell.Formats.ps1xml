@@ -593,6 +593,9 @@
 			<TableControl>
 				<TableHeaders>
 					<TableColumnHeader>
+						<Label>Id</Label>
+					</TableColumnHeader>
+					<TableColumnHeader>
 						<Label>Title</Label>
 					</TableColumnHeader>
 					<TableColumnHeader>
@@ -610,6 +613,9 @@
 						<TableColumnItems>
 							<TableColumnItem>
 								<PropertyName>Title</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>Id</PropertyName>
 							</TableColumnItem>
 							<TableColumnItem>
 								<PropertyName>PausedAt</PropertyName>
