@@ -19,6 +19,7 @@ InModuleScope Trakt-PowerShell {
         It "Get all playback progress" {
             $playback = Get-TraktPlayback
 
+            ($playback | Measure-Object).Count | Should Not Be 0
             $playback | Where-Object { $_.Title -eq 'TRON: Legacy' } | Should Not BeNullOrEmpty
             $playback | Where-Object { $_.Title -eq 'The Flash: City of Heroes' } | Should Not BeNullOrEmpty
         }
@@ -26,17 +27,19 @@ InModuleScope Trakt-PowerShell {
         It "Get movies playback progress" {
             $playback = Get-TraktPlayback -Type movies
 
+            ($playback | Measure-Object).Count | Should Not Be 0
             $playback | Where-Object { $_.Title -eq 'TRON: Legacy' } | Should Not BeNullOrEmpty
         }
 
         It "Get episodes playback progress" {
             $playback = Get-TraktPlayback -Type episodes
 
+            ($playback | Measure-Object).Count | Should Not Be 0
             $playback | Where-Object { $_.Title -eq 'The Flash: City of Heroes' } | Should Not BeNullOrEmpty
         }
 
         AfterAll {
-            Get-TraktPlayback | Remove-TraktPlayback
+            Get-TraktPlayback | Remove-TraktPlayback | Out-Null
         }
     }
 }
