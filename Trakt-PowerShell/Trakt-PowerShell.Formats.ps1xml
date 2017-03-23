@@ -195,54 +195,6 @@
 		</View>
 
 		<View>
-			<Name>Trakt.People</Name>
-			<ViewSelectedBy>
-				<TypeName>Trakt.People</TypeName>
-			</ViewSelectedBy>
-
-			<TableControl>
-				<TableHeaders>
-					<TableColumnHeader>
-						<Label>Name</Label>
-					</TableColumnHeader>
-					<TableColumnHeader>
-						<Label>Birthday</Label>
-					</TableColumnHeader>
-					<TableColumnHeader>
-						<Label>Birthplace</Label>
-					</TableColumnHeader>
-					<TableColumnHeader>
-						<Label>Homepage</Label>
-					</TableColumnHeader>
-					<TableColumnHeader>
-						<Label>Biography</Label>
-					</TableColumnHeader>
-				</TableHeaders>
-				<TableRowEntries>
-					<TableRowEntry>
-						<TableColumnItems>
-							<TableColumnItem>
-								<PropertyName>Name</PropertyName>
-							</TableColumnItem>
-							<TableColumnItem>
-								<PropertyName>Birthday</PropertyName>
-							</TableColumnItem>
-							<TableColumnItem>
-								<PropertyName>Birthplace</PropertyName>
-							</TableColumnItem>
-							<TableColumnItem>
-								<PropertyName>Homepage</PropertyName>
-							</TableColumnItem>
-							<TableColumnItem>
-								<PropertyName>Biography</PropertyName>
-							</TableColumnItem>
-						</TableColumnItems>
-					</TableRowEntry>
-				</TableRowEntries>
-			</TableControl>
-		</View>
-
-		<View>
 			<Name>Trakt.Cast</Name>
 			<ViewSelectedBy>
 				<TypeName>Trakt.Cast</TypeName>
@@ -1472,7 +1424,16 @@
 						<Label>Name</Label>
 					</TableColumnHeader>
 					<TableColumnHeader>
-						<Label>IDs</Label>
+						<Label>Birthday</Label>
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<Label>Birthplace</Label>
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<Label>Homepage</Label>
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<Label>Biography</Label>
 					</TableColumnHeader>
 				</TableHeaders>
 				<TableRowEntries>
@@ -1482,7 +1443,16 @@
 								<PropertyName>Name</PropertyName>
 							</TableColumnItem>
 							<TableColumnItem>
-								<PropertyName>IDs</PropertyName>
+								<PropertyName>Birthday</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>Birthplace</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>Homepage</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>Biography</PropertyName>
 							</TableColumnItem>
 						</TableColumnItems>
 					</TableRowEntry>

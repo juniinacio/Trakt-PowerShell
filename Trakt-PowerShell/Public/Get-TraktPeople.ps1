@@ -87,7 +87,7 @@ function Get-TraktPeople
         Invoke-Trakt -Uri $uri -Method ([Microsoft.PowerShell.Commands.WebRequestMethod]::Get) -Parameters $parameters |
         ForEach-Object {
             if ($PSCmdlet.ParameterSetName -eq 'ASinglePerson') {
-                $_ | ConvertTo-TraktPeople
+                $_ | ConvertTo-TraktPerson
             } elseif ($PSCmdlet.ParameterSetName -eq 'MovieCredits') {
                 $_ | ConvertTo-TraktCreditsMovie
             } else {

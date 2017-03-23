@@ -36,6 +36,30 @@ function ConvertTo-TraktPerson {
             IDs = $InputObject.ids
         }
 
+        if ($propertyNames -contains 'biography') {
+            $newProperties.Biography  = $InputObject.biography
+        }
+
+        if ($propertyNames -contains 'birthplace') {
+            $newProperties.Birthplace  = $InputObject.birthplace
+        }
+
+        if ($propertyNames -contains 'homepage') {
+            $newProperties.Homepage  = $InputObject.homepage
+        }
+
+        if ($propertyNames -contains 'birthday') {
+            if (-not [string]::IsNullOrEmpty($InputObject.birthday)) {
+                $newProperties.Birthday  = [DateTime]$InputObject.birthday
+            }
+        }
+
+        if ($propertyNames -contains 'death') {
+            if (-not [string]::IsNullOrEmpty($InputObject.death)) {
+                $newProperties.Death  = [DateTime]$InputObject.death
+            }
+        }
+
         $psco = [PSCustomObject]$newProperties
         $psco.PSObject.TypeNames.Insert(0, 'Trakt.Person')
         $psco

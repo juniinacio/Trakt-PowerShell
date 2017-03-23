@@ -59,7 +59,7 @@ function ConvertTo-TraktSearch {
         }
 
         if ($propertyNames -contains 'person') {
-            $newProperties.Person = $InputObject.person | ConvertTo-TraktPeople
+            $newProperties.Person = $InputObject.person | ConvertTo-TraktPerson
         }
 
         $psco = [PSCustomObject]$newProperties
