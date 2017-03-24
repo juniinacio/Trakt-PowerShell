@@ -522,10 +522,10 @@
 					<TableRowEntry>
 						<TableColumnItems>
 							<TableColumnItem>
-								<PropertyName>Title</PropertyName>
+								<PropertyName>Id</PropertyName>
 							</TableColumnItem>
 							<TableColumnItem>
-								<PropertyName>Id</PropertyName>
+								<PropertyName>Title</PropertyName>
 							</TableColumnItem>
 							<TableColumnItem>
 								<PropertyName>PausedAt</PropertyName>
