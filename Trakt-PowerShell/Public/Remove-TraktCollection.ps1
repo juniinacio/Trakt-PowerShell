@@ -65,10 +65,10 @@ function Remove-TraktCollection
             $postData.episodes += $newInputObject
         } elseif ($InputObject.PSObject.TypeNames -contains 'Trakt.Collection.Movie') {
             $newInputObject = $InputObject.Movie | ConvertFrom-TraktMovie
-            $postData.episodes += $newInputObject
+            $postData.movies += $newInputObject
         } elseif ($InputObject.PSObject.TypeNames -contains 'Trakt.Collection.Show') {
             $newInputObject = $InputObject.Show | ConvertFrom-TraktShow
-            $postData.episodes += $newInputObject
+            $postData.shows += $newInputObject
         } else {
             throw 'Unknown object type passed to the cmdlet.'
         }
