@@ -21,6 +21,8 @@ InModuleScope Trakt-PowerShell {
         }
 
         AfterAll {
+            Get-TraktCollection -Type movies | Remove-TraktCollection
+            Get-TraktCollection -Type shows | Remove-TraktCollection
         }
     }
 }
