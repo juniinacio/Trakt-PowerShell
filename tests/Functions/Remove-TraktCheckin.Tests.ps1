@@ -9,7 +9,7 @@ InModuleScope Trakt-PowerShell {
 
             $movie = Get-TraktMovie -Id "guardians-of-the-galaxy-2014" -Summary
             
-            Set-TraktCheckin -InputObject $movie -Facebook -Twitter -Tumblr -Message 'Guardians of the Galaxy!'
+            Set-TraktCheckin -InputObject $movie -Facebook -Twitter -Tumblr -Message 'Guardians of the Galaxy!' | Out-Null
         }
 
         It "Delete any active checkins" {

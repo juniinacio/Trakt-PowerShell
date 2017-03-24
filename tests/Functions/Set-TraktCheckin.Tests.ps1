@@ -15,12 +15,12 @@ InModuleScope Trakt-PowerShell {
         }
 
         It "Check into an movie" {
-            { Set-TraktCheckin -InputObject $movie -Facebook -Twitter -Tumblr -Message 'Guardians of the Galaxy!' } | Should Not Throw
+            { Set-TraktCheckin -InputObject $movie -Facebook -Twitter -Tumblr -Message 'Guardians of the Galaxy!' | Out-Null } | Should Not Throw
             Remove-TraktCheckin
         }
 
         It "Check into an episode" {
-            { Set-TraktCheckin -InputObject $episode -Facebook -Twitter -Tumblr -Message 'The Flash!' } | Should Not Throw
+            { Set-TraktCheckin -InputObject $episode -Facebook -Twitter -Tumblr -Message 'The Flash!' | Out-Null } | Should Not Throw
             Remove-TraktCheckin
         }
 
