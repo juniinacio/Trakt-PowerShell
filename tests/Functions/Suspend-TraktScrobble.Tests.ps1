@@ -27,7 +27,7 @@ InModuleScope Trakt-PowerShell {
             Start-TraktScrobble -Episode $episode -Progress 10 | Out-Null
             Suspend-TraktScrobble -Episode $episode -Progress 15 | Out-Null
 
-            $playback = Get-TraktPlayback -Type episodes | Where-Object { $_.Title -eq 'The Flash: City of Heroes' }
+            $playback = Get-TraktPlayback -Type episodes | Where-Object { $_.Title -eq 'The Flash' }
 
             $playback | Should Not BeNullOrEmpty
             $playback.Progress | Should Be 15
