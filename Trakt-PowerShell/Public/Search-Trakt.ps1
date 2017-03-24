@@ -28,7 +28,7 @@
 .FUNCTIONALITY
     The functionality that best describes this cmdlet
 #>
-function Start-TraktSearch
+function Search-Trakt
 {
     [CmdletBinding(DefaultParameterSetName='Summary')]
     [OutputType([PSCustomObject])]

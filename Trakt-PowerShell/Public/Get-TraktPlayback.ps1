@@ -30,14 +30,19 @@
 #>
 function Get-TraktPlayback
 {
-    [CmdletBinding(DefaultParameterSetName='Summary')]
+    [CmdletBinding()]
     [OutputType([PSCustomObject])]
     Param (
         # Id help description
         [Parameter(Mandatory=$false)]
         [ValidateSet('movies', 'episodes')]
         [String]
-        $Type
+        $Type,
+
+        # Limit help description
+        [Parameter(Mandatory=$false)]
+        [Int]
+        $Limit
     )
     
     process
@@ -49,8 +54,14 @@ function Get-TraktPlayback
         } else {
             $uri = 'sync/playback'
         }
+
+        $parameters = @{}
+
+        if ($PSBoundParameters.ContainsKey("Limit")) {
+            $parameters.limit = $Limit
+        }
         
-        Invoke-Trakt -Uri $uri -Method ([Microsoft.PowerShell.Commands.WebRequestMethod]::Get) |
+        Invoke-Trakt -Uri $uri -Method ([Microsoft.PowerShell.Commands.WebRequestMethod]::Get) -Parameters $parameters |
         ForEach-Object {
             $_ | ConvertTo-TraktPlayback
         }
