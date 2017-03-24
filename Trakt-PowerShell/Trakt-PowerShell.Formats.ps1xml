@@ -387,9 +387,9 @@
 		</View>
 
 		<View>
-			<Name>Trakt.WatchedMovie</Name>
+			<Name>Trakt.Watched</Name>
 			<ViewSelectedBy>
-				<TypeName>Trakt.WatchedMovie</TypeName>
+				<TypeName>Trakt.Watched</TypeName>
 			</ViewSelectedBy>
 
 			<TableControl>
@@ -415,48 +415,6 @@
 							</TableColumnItem>
 							<TableColumnItem>
 								<PropertyName>Title</PropertyName>
-							</TableColumnItem>
-						</TableColumnItems>
-					</TableRowEntry>
-				</TableRowEntries>
-			</TableControl>
-		</View>
-
-		<View>
-			<Name>Trakt.WatchedShow</Name>
-			<ViewSelectedBy>
-				<TypeName>Trakt.WatchedShow</TypeName>
-			</ViewSelectedBy>
-
-			<TableControl>
-				<TableHeaders>
-					<TableColumnHeader>
-						<Label>Plays</Label>
-					</TableColumnHeader>
-					<TableColumnHeader>
-						<Label>LastWatchedAt</Label>
-					</TableColumnHeader>
-					<TableColumnHeader>
-						<Label>Title</Label>
-					</TableColumnHeader>
-					<TableColumnHeader>
-						<Label>WatchedSeasons</Label>
-					</TableColumnHeader>
-				</TableHeaders>
-				<TableRowEntries>
-					<TableRowEntry>
-						<TableColumnItems>
-							<TableColumnItem>
-								<PropertyName>Plays</PropertyName>
-							</TableColumnItem>
-							<TableColumnItem>
-								<PropertyName>LastWatchedAt</PropertyName>
-							</TableColumnItem>
-							<TableColumnItem>
-								<PropertyName>Title</PropertyName>
-							</TableColumnItem>
-							<TableColumnItem>
-								<PropertyName>WatchedSeasons</PropertyName>
 							</TableColumnItem>
 						</TableColumnItems>
 					</TableRowEntry>

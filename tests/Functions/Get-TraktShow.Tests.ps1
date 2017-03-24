@@ -137,9 +137,10 @@ InModuleScope Trakt-PowerShell {
         }
 
         It "Get last episode" {
-            $shows = Get-TraktShow -LastEpisode -Id 'game-of-thrones'
+            $episode = Get-TraktShow -LastEpisode -Id 'game-of-thrones'
 
-            ($shows | Measure-Object).Count | Should Not Be 0
+            ($episode | Measure-Object).Count | Should Not Be 0
+            $episode | Where-Object { $_.Title -eq 'The Broken Man' } | Should Not BeNullOrEmpty
         }
 
         AfterAll {

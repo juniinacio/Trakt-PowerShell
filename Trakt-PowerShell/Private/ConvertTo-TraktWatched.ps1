@@ -51,15 +51,11 @@ function ConvertTo-TraktWatched {
         }
 
         if ($propertyNames -contains 'seasons') {
-            $newProperties.Seasons = $InputObject.seasons | ConvertTo-TraktSeasons
+            $newProperties.Seasons = $InputObject.seasons | ConvertTo-TraktSeason -ParentObject $newProperties.Show
         }
 
         $psco = [PSCustomObject]$newProperties
-        if ($propertyNames -contains 'movie') {
-            $psco.PSObject.TypeNames.Insert(0, 'Trakt.WatchedMovie')
-        } else {
-            $psco.PSObject.TypeNames.Insert(0, 'Trakt.WatchedShow')
-        }
+        $psco.PSObject.TypeNames.Insert(0, 'Trakt.Watched')
         $psco
     }
 }
