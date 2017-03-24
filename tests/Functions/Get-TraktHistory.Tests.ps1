@@ -1,4 +1,5 @@
-Import-Module $(Join-Path -Path $PSScriptRoot -ChildPath '../../Trakt-PowerShell/Trakt-PowerShell.psd1') -Force -ArgumentList $true
+$Global:IsStaging = $true
+Import-Module $(Join-Path -Path $PSScriptRoot -ChildPath '../../Trakt-PowerShell/Trakt-PowerShell.psd1') -Force
 
 InModuleScope Trakt-PowerShell {
     Describe "Get-TraktHistory" -Tags "CI" {

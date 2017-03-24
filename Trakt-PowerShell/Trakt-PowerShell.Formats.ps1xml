@@ -1604,5 +1604,71 @@
 			</TableControl>
 		</View>
 
+		<View>
+			<Name>Trakt.Calendar.Movie</Name>
+			<ViewSelectedBy>
+				<TypeName>Trakt.Calendar.Movie</TypeName>
+			</ViewSelectedBy>
+
+			<TableControl>
+				<TableHeaders>
+					<TableColumnHeader>
+						<Label>Released</Label>
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<Label>Title</Label>
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<Label>Year</Label>
+					</TableColumnHeader>
+				</TableHeaders>
+				<TableRowEntries>
+					<TableRowEntry>
+						<TableColumnItems>
+							<TableColumnItem>
+								<PropertyName>Released</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>Title</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>Year</PropertyName>
+							</TableColumnItem>
+						</TableColumnItems>
+					</TableRowEntry>
+				</TableRowEntries>
+			</TableControl>
+		</View>
+
+		<View>
+			<Name>Trakt.Calendar.Show</Name>
+			<ViewSelectedBy>
+				<TypeName>Trakt.Calendar.Show</TypeName>
+			</ViewSelectedBy>
+
+			<TableControl>
+				<TableHeaders>
+					<TableColumnHeader>
+						<Label>FirstAired</Label>
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<Label>Title</Label>
+					</TableColumnHeader>
+				</TableHeaders>
+				<TableRowEntries>
+					<TableRowEntry>
+						<TableColumnItems>
+							<TableColumnItem>
+								<PropertyName>FirstAired</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>Title</PropertyName>
+							</TableColumnItem>
+						</TableColumnItems>
+					</TableRowEntry>
+				</TableRowEntries>
+			</TableControl>
+		</View>
+
 	</ViewDefinitions>
 </Configuration>

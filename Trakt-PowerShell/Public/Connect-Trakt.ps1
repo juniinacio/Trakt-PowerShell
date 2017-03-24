@@ -133,6 +133,7 @@ function Connect-Trakt {
     }
     
     process {
+        # LINK: http://docs.trakt.apiary.io/#reference/authentication-oauth
         GetToken | SaveToken | SetToken
     }
 }
