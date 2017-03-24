@@ -10,14 +10,12 @@ InModuleScope Trakt-PowerShell {
             $recommendations = Get-TraktRecommendation -Movies
 
             ($recommendations | Measure-Object).Count | Should Not Be 0
-            $recommendations | Where-Object { $_.Title -eq 'I Am Legend' } | Should Not BeNullOrEmpty
         }
 
         It "Get show recommendations" {
             $recommendations = Get-TraktRecommendation -Shows
 
             ($recommendations | Measure-Object).Count | Should Not Be 0
-            $recommendations | Where-Object { $_.Title -eq 'Lucifer' } | Should Not BeNullOrEmpty
         }
 
         AfterAll {
