@@ -8,11 +8,11 @@ InModuleScope Trakt-PowerShell {
             $movie = Get-TraktMovie -Summary -Id 'tron-legacy-2010'
             $episode = Get-TraktEpisode -Summary -Id "the-flash" -SeasonNumber 1 -EpisodeNumber 1
 
-            Start-TraktScrobble -Movie $movie -Progress 10
-            Stop-TraktScrobble -Movie $movie -Progress 90
+            Start-TraktScrobble -Movie $movie -Progress 10 | Out-Null
+            Stop-TraktScrobble -Movie $movie -Progress 90 | Out-Null
 
-            Start-TraktScrobble -Episode $episode -Progress 10
-            Stop-TraktScrobble -Episode $episode -Progress 90
+            Start-TraktScrobble -Episode $episode -Progress 10 | Out-Null
+            Stop-TraktScrobble -Episode $episode -Progress 90 | Out-Null
         }
 
         It "Get watched movies" {
@@ -30,7 +30,7 @@ InModuleScope Trakt-PowerShell {
         }
 
         AfterAll {
-            Get-TraktHistory | Remove-TraktHistory
+            Get-TraktHistory | Remove-TraktHistory | Out-Null
         }
     }
 }
