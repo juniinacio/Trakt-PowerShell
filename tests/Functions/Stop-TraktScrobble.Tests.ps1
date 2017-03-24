@@ -29,7 +29,7 @@ InModuleScope Trakt-PowerShell {
             $history = Get-TraktHistory -Type shows
 
             ($history | Measure-Object).Count | Should BeGreaterThan 0
-            $history | Where-Object { $_.Title -eq 'The Flash' } | Should Not BeNullOrEmpty
+            $history | Where-Object { $_.Title -eq 'The Flash: City of Heroes' } | Should Not BeNullOrEmpty
         }
 
         AfterAll {
