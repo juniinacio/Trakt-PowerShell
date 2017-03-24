@@ -8,8 +8,8 @@ InModuleScope Trakt-PowerShell {
             $movie = Get-TraktMovie -Summary -Id 'tron-legacy-2010'
             $show = Get-TraktShow -Summary -Id "the-flash"
 
-            Update-TraktCollection -InputObject $movie
-            Update-TraktCollection -InputObject $show
+            Update-TraktCollection -InputObject $movie | Out-Null
+            Update-TraktCollection -InputObject $show | Out-Null
         }
 
         It "Get movies collection" {
