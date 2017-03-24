@@ -38,8 +38,8 @@ function ConvertTo-TraktCheckin {
         Select-Object -ExpandProperty Name
 
         $newProperties = @{
-            id = $InputObject.id
-            sharing = $InputObject.sharing
+            Id = $InputObject.id
+            Sharing = $InputObject.sharing
         }
 
         if ($propertyNames -contains 'movie') {

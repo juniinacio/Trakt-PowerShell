@@ -1670,5 +1670,35 @@
 			</TableControl>
 		</View>
 
+		<View>
+			<Name>Trakt.Checkin</Name>
+			<ViewSelectedBy>
+				<TypeName>Trakt.Checkin</TypeName>
+			</ViewSelectedBy>
+
+			<TableControl>
+				<TableHeaders>
+					<TableColumnHeader>
+						<Label>Id</Label>
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<Label>Sharing</Label>
+					</TableColumnHeader>
+				</TableHeaders>
+				<TableRowEntries>
+					<TableRowEntry>
+						<TableColumnItems>
+							<TableColumnItem>
+								<PropertyName>Id</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>Sharing</PropertyName>
+							</TableColumnItem>
+						</TableColumnItems>
+					</TableRowEntry>
+				</TableRowEntries>
+			</TableControl>
+		</View>
+
 	</ViewDefinitions>
 </Configuration>
