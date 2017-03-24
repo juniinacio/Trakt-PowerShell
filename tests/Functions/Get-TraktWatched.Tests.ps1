@@ -4,6 +4,15 @@ InModuleScope Trakt-PowerShell {
     Describe "Get-TraktWatched" -Tags "CI" {
         BeforeAll {
             Connect-Trakt | Out-Null
+            
+            $movie = Get-TraktMovie -Summary -Id 'tron-legacy-2010'
+            $episode = Get-TraktEpisode -Summary -Id "the-flash" -SeasonNumber 1 -EpisodeNumber 1
+
+            Start-TraktScrobble -Movie $movie -Progress 10
+            Stop-TraktScrobble -Movie $movie -Progress 90
+
+            Start-TraktScrobble -Episode $episode -Progress 10
+            Stop-TraktScrobble -Episode $episode -Progress 90
         }
 
         It "Get watched movies" {
@@ -17,10 +26,11 @@ InModuleScope Trakt-PowerShell {
             $shows = Get-TraktWatched -Type shows
 
             ($shows | Measure-Object).Count | Should Not Be 0
-            $shows | Where-Object { $_.Title -eq 'Game of Thrones' } | Should Not BeNullOrEmpty
+            $shows | Where-Object { $_.Title -eq 'The Flash' } | Should Not BeNullOrEmpty
         }
 
         AfterAll {
+            Get-TraktHistory | Remove-TraktHistory
         }
     }
 }
