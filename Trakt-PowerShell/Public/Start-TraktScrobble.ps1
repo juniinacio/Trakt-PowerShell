@@ -30,6 +30,7 @@ function Start-TraktScrobble
 {
     [CmdletBinding(DefaultParameterSetName='StartWatchingMovieInMediaCenter')]
     [OutputType([PSCustomObject])]
+    [Alias('Resume-TraktScrobble')]
     Param
     (
         # Movi help description
