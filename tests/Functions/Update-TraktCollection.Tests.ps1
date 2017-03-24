@@ -6,6 +6,7 @@ InModuleScope Trakt-PowerShell {
             Connect-Trakt | Out-Null
 
             $movie = Get-TraktMovie -Id 'the-avengers-2012' -Summary
+            
             $show = Get-TraktShow -Id 'game-of-thrones' -Summary
         }
 
