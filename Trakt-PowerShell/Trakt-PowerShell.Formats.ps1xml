@@ -1556,5 +1556,53 @@
 			</TableControl>
 		</View>
 
+		<View>
+			<Name>Trakt.History</Name>
+			<ViewSelectedBy>
+				<TypeName>Trakt.History</TypeName>
+			</ViewSelectedBy>
+
+			<TableControl>
+				<TableHeaders>
+					<TableColumnHeader>
+						<Label>Id</Label>
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<Label>Title</Label>
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<Label>WatchedAt</Label>
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<Label>Action</Label>
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<Label>Type</Label>
+					</TableColumnHeader>
+				</TableHeaders>
+				<TableRowEntries>
+					<TableRowEntry>
+						<TableColumnItems>
+							<TableColumnItem>
+								<PropertyName>Id</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>Title</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>WatchedAt</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>Action</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>Type</PropertyName>
+							</TableColumnItem>
+						</TableColumnItems>
+					</TableRowEntry>
+				</TableRowEntries>
+			</TableControl>
+		</View>
+
 	</ViewDefinitions>
 </Configuration>
