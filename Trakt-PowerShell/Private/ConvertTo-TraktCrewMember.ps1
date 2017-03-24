@@ -20,7 +20,7 @@
 .FUNCTIONALITY
     The functionality that best describes this cmdlet
 #>
-function ConvertTo-TraktPeople {
+function ConvertTo-TraktCrewMember {
     [CmdletBinding()]
     [OutputType([Object])]
     Param (
@@ -39,16 +39,16 @@ function ConvertTo-TraktPeople {
 
         $newProperties = @{}
 
-        if ($propertyNames -contains 'Cast') {
-            $newProperties.Cast  = $InputObject.cast | ConvertTo-TraktCast
+        if ($propertyNames -contains 'job') {
+            $newProperties.Job = $InputObject.job
         }
 
-        if ($propertyNames -contains 'Crew') {
-            $newProperties.Crew  = $InputObject.crew | ConvertTo-TraktCrew
+        if ($propertyNames -contains 'person') {
+            $newProperties.Person = $InputObject.person | ConvertTo-TraktPerson
         }
 
         $psco = [PSCustomObject]$newProperties
-        $psco.PSObject.TypeNames.Insert(0, 'Trakt.People')
+        $psco.PSObject.TypeNames.Insert(0, 'Trakt.CrewMember')
         $psco
     }
 }

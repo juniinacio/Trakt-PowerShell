@@ -310,7 +310,7 @@ function Get-TraktMovie
             } elseif ($PSCmdlet.ParameterSetName -eq 'ListsContainingThisMovie') {
                 $_ | ConvertTo-TraktList
             } elseif ($PSCmdlet.ParameterSetName -eq 'AllPeopleForAMovie') {
-                $_.Cast | ConvertTo-TraktCast
+                $_ | ConvertTo-TraktPeople
             } elseif ($PSCmdlet.ParameterSetName -eq 'MovieRatings') {
                 $_ | ConvertTo-TraktRating
             } elseif ($PSCmdlet.ParameterSetName -eq 'MovieStats') {

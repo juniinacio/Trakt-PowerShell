@@ -363,13 +363,13 @@ function Get-TraktShow
             } elseif ($PSCmdlet.ParameterSetName -eq 'ShowWatchedProgress') {
                 $_ | ConvertTo-TraktWatchedProgress -ParentObject $parentObject
             } elseif ($PSCmdlet.ParameterSetName -eq 'AllPeopleForAShow') {
-                $_.Cast | ConvertTo-TraktCast
+                $_ | ConvertTo-TraktPeople
             } elseif ($PSCmdlet.ParameterSetName -eq 'ShowRatings') {
                 $_ | ConvertTo-TraktRating
             } elseif ($PSCmdlet.ParameterSetName -eq 'ShowStats') {
                 $_ | ConvertTo-TraktStats
             } elseif ($PSCmdlet.ParameterSetName -eq 'NextEpisode') {
-                $_ #| ConvertTo-TraktEpisode
+                $_ | ConvertTo-TraktEpisode
             } elseif ($PSCmdlet.ParameterSetName -eq 'LastEpisode') {
                 $_ | ConvertTo-TraktEpisode
             } else {

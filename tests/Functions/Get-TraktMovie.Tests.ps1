@@ -107,7 +107,7 @@ InModuleScope Trakt-PowerShell {
             $movies = Get-TraktMovie -People -Id 'tron-legacy-2010'
 
             ($movies | Measure-Object).Count | Should Not Be 0
-            $movies | Where-Object { $_.Name -eq 'Aaron Toney' } | Should Not BeNullOrEmpty
+            $movies.Cast | Where-Object { $_.Name -eq 'Garrett Hedlund' } | Should Not BeNullOrEmpty
         }
 
         It "Get movie ratings" {
@@ -128,7 +128,6 @@ InModuleScope Trakt-PowerShell {
             $movies = Get-TraktMovie -Stats -Id 'tron-legacy-2010'
 
             ($movies | Measure-Object).Count | Should Not Be 0
-            $movies | Where-Object { $_.Collectors -eq 15 } | Should Not BeNullOrEmpty
         }
 
         AfterAll {
