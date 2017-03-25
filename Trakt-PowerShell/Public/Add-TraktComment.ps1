@@ -127,9 +127,7 @@ function Add-TraktComment
 
         $postData.comment = $Comment
         $postData.spoiler = $Spoiler.IsPresent
-    }
 
-    end {
         Invoke-Trakt -Uri $uri -Method ([Microsoft.PowerShell.Commands.WebRequestMethod]::Post) -PostData $postData |
         ForEach-Object {
             $_ | ConvertTo-TraktComment
