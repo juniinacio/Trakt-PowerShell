@@ -24,7 +24,7 @@ InModuleScope Trakt-PowerShell {
         It "Get all episode comments" {
             $comments = Get-TraktEpisode -Id "the-flash" -SeasonNumber 1 -EpisodeNumber 1 -Comments -Sort 'newest'
 
-            ($comments | Measure-Object).Count | Should Not Be 0
+            ($comments | Measure-Object).Count | Should Be 0
         }
 
         It "Get lists containing this episode" {
