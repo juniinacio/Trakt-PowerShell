@@ -28,7 +28,7 @@
 .FUNCTIONALITY
     The functionality that best describes this cmdlet
 #>
-function Update-TraktHistory
+function Remove-TraktRating
 {
     [CmdletBinding(DefaultParameterSetName='ASinglePerson')]
     [OutputType([PSCustomObject])]
@@ -41,7 +41,7 @@ function Update-TraktHistory
     )
 
     begin {
-        $uri = 'sync/history'
+        $uri = 'sync/ratings/remove'
 
         $postData = @{
             movies = @()
@@ -56,21 +56,32 @@ function Update-TraktHistory
 
         if ($InputObject.PSObject.TypeNames -contains 'Trakt.Movie') {
             $newInputObject = $InputObject | ConvertFrom-TraktMovie
-            $newInputObject.watched_at = Get-Date -Format 'u'
             $postData.movies += $newInputObject
         } elseif ($InputObject.PSObject.TypeNames -contains 'Trakt.Show') {
             $newInputObject = $InputObject | ConvertFrom-TraktShow
+            $newInputObject.Remove('seasons')
             $postData.shows += $newInputObject
-        } elseif ($InputObject.PSObject.TypeNames -contains 'Trakt.Season') {
-            $InputObject.Episodes | ConvertFrom-TraktEpisode | ForEach-Object {
-                $newInputObject = $_
-                $newInputObject.watched_at = Get-Date -Format 'u'
-                $postData.episodes += $_
-            }
         } elseif ($InputObject.PSObject.TypeNames -contains 'Trakt.Episode') {
             $newInputObject = $InputObject | ConvertFrom-TraktEpisode
-            $newInputObject.watched_at = Get-Date -Format 'u'
             $postData.episodes += $newInputObject
+        } elseif ($InputObject.PSObject.TypeNames -contains 'Trakt.Ratings') {
+            switch ($InputObject.Type) {
+                movie {
+                    $newInputObject = $InputObject.Movie | ConvertFrom-TraktMovie
+                    $postData.movies += $newInputObject
+                }
+
+                show {
+                    $newInputObject = $InputObject.Show | ConvertFrom-TraktShow
+                    $newInputObject.Remove('seasons')
+                    $postData.shows += $newInputObject 
+                }
+
+                episode {
+                    $newInputObject = $InputObject.Episode | ConvertFrom-TraktEpisode
+                    $postData.episodes += $newInputObject 
+                }
+            }
         } else {
             throw 'Unknown object type passed to the cmdlet.'
         }
@@ -79,7 +90,7 @@ function Update-TraktHistory
     end {
         Invoke-Trakt -Uri $uri -Method ([Microsoft.PowerShell.Commands.WebRequestMethod]::Post) -PostData $postData |
         ForEach-Object {
-            $_ | ConvertTo-TraktCollection
+            $_
         }
     }
 }

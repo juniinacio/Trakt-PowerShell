@@ -28,28 +28,42 @@
 .FUNCTIONALITY
     The functionality that best describes this cmdlet
 #>
-function Get-TraktGenre
+function Get-TraktRating
 {
     [CmdletBinding()]
     [OutputType([PSCustomObject])]
     Param
     (   
         # Type help description
-        [Parameter(Mandatory=$true)]
-        [ValidateSet('movies', 'shows')]
+        [Parameter(Mandatory=$false)]
+        [ValidateSet('movies', 'shows', 'seasons', 'episodes', 'all')]
         [String]
-        $Type
+        $Type,
+
+        # Rating help description
+        [Parameter(Mandatory=$false)]
+        [ValidateRange(1, 10)]
+        [int]
+        $Rating
     )
     
     process
     {
-        # LINK: http://docs.trakt.apiary.io/#reference/genres/list/get-genres
+        # LINK: http://docs.trakt.apiary.io/#reference/sync/get-ratings/get-ratings
                 
-        $uri = 'genres/{0}' -f $Type
+        $uri = 'sync/ratings'
+
+        if ($PSBoundParameters.ContainsKey('Type')) {
+            if ($PSBoundParameters.ContainsKey('Rating')) {
+                $uri = 'sync/ratings/{0}/{1}' -f $Type, $Rating
+            } else {
+                $uri = 'sync/ratings/{0}' -f $Type
+            }
+        }
 
         Invoke-Trakt -Uri $uri -Method ([Microsoft.PowerShell.Commands.WebRequestMethod]::Get) |
         ForEach-Object {
-            $_ | ConvertTo-TraktGenre
+            $_ | ConvertTo-TraktRatings
         }
     }
 }

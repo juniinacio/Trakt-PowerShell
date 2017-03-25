@@ -37,9 +37,7 @@ function ConvertFrom-TraktMovie {
         } |
         Select-Object -ExpandProperty Name
 
-        $newProperties = @{
-            watched_at = (Get-Date).ToUniversalTime()
-        }
+        $newProperties = @{}
 
         if ($propertyNames -contains 'title') {
             $newProperties.title  = $InputObject.Title
@@ -53,6 +51,6 @@ function ConvertFrom-TraktMovie {
             $newProperties.ids  = $InputObject.IDs
         }
 
-        [PSCustomObject]$newProperties
+        $newProperties
     }
 }

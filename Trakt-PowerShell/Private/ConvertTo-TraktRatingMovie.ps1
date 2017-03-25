@@ -20,7 +20,7 @@
 .FUNCTIONALITY
     The functionality that best describes this cmdlet
 #>
-function ConvertFrom-TraktShow {
+function ConvertTo-TraktRatingMovie {
     [CmdletBinding()]
     [OutputType([Object])]
     Param (
@@ -38,27 +38,17 @@ function ConvertFrom-TraktShow {
         Select-Object -ExpandProperty Name
 
         $newProperties = @{
-            seasons = $InputObject.Seasons | ForEach-Object {
-                if ($_.Number -gt 0) {
-                    @{
-                        number = $_.Number
-                    }
-                }
-            }
+            RatedAt = $InputObject.rated_at | ConvertTo-LocalTime
+            Rating = $InputObject.rating
+            Type = $InputObject.type
         }
 
-        if ($propertyNames -contains 'title') {
-            $newProperties.title  = $InputObject.title
+        if ($propertyNames -contains 'movie') {
+            $newProperties.Movie  = $InputObject.movie | ConvertTo-TraktMovie
         }
 
-        if ($propertyNames -contains 'year') {
-            $newProperties.year  = $InputObject.year
-        }
-
-        if ($propertyNames -contains 'ids') {
-            $newProperties.ids  = $InputObject.IDs
-        }
-
-        $newProperties
+        $psco = [PSCustomObject]$newProperties
+        $psco.PSObject.TypeNames.Insert(0, 'Trakt.Rating.Movie')
+        $psco
     }
 }

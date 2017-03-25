@@ -28,7 +28,7 @@
 .FUNCTIONALITY
     The functionality that best describes this cmdlet
 #>
-function Update-TraktHistory
+function Add-TraktRating
 {
     [CmdletBinding(DefaultParameterSetName='ASinglePerson')]
     [OutputType([PSCustomObject])]
@@ -37,11 +37,23 @@ function Update-TraktHistory
         # InputObject help description
         [Parameter(Mandatory=$true, ValueFromPipeline=$true, ValueFromPipelineByPropertyName=$true)]
         [Object]
-        $InputObject
+        $InputObject,
+
+        # Rating help description
+        [Parameter(Mandatory=$true, ValueFromPipelineByPropertyName=$true)]
+        [ValidateRange(1, 10)]
+        [int]
+        $Rating,
+
+        # RatedAt help description
+        [Parameter(Mandatory=$false, ValueFromPipelineByPropertyName=$true)]
+        [ValidateRange(1, 10)]
+        [datetime]
+        $RatedAt
     )
 
     begin {
-        $uri = 'sync/history'
+        $uri = 'sync/ratings'
 
         $postData = @{
             movies = @()
@@ -56,20 +68,25 @@ function Update-TraktHistory
 
         if ($InputObject.PSObject.TypeNames -contains 'Trakt.Movie') {
             $newInputObject = $InputObject | ConvertFrom-TraktMovie
-            $newInputObject.watched_at = Get-Date -Format 'u'
+            $newInputObject.rating = $Rating
+            if ($PSBoundParameters.ContainsKey('RatedAt')) {
+                $newInputObject.RatedAt = $RatedAt.ToString('u')
+            }
             $postData.movies += $newInputObject
         } elseif ($InputObject.PSObject.TypeNames -contains 'Trakt.Show') {
             $newInputObject = $InputObject | ConvertFrom-TraktShow
-            $postData.shows += $newInputObject
-        } elseif ($InputObject.PSObject.TypeNames -contains 'Trakt.Season') {
-            $InputObject.Episodes | ConvertFrom-TraktEpisode | ForEach-Object {
-                $newInputObject = $_
-                $newInputObject.watched_at = Get-Date -Format 'u'
-                $postData.episodes += $_
+            $newInputObject.rating = $Rating
+            if ($PSBoundParameters.ContainsKey('RatedAt')) {
+                $newInputObject.RatedAt = $RatedAt.ToString('u')
             }
+            $newInputObject.Remove('seasons')
+            $postData.shows += $newInputObject
         } elseif ($InputObject.PSObject.TypeNames -contains 'Trakt.Episode') {
             $newInputObject = $InputObject | ConvertFrom-TraktEpisode
-            $newInputObject.watched_at = Get-Date -Format 'u'
+            $newInputObject.rating = $Rating
+            if ($PSBoundParameters.ContainsKey('RatedAt')) {
+                $newInputObject.RatedAt = $RatedAt.ToString('u')
+            }
             $postData.episodes += $newInputObject
         } else {
             throw 'Unknown object type passed to the cmdlet.'
@@ -79,7 +96,7 @@ function Update-TraktHistory
     end {
         Invoke-Trakt -Uri $uri -Method ([Microsoft.PowerShell.Commands.WebRequestMethod]::Post) -PostData $postData |
         ForEach-Object {
-            $_ | ConvertTo-TraktCollection
+            $_
         }
     }
 }

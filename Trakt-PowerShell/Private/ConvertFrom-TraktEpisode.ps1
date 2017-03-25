@@ -37,14 +37,12 @@ function ConvertFrom-TraktEpisode {
         } |
         Select-Object -ExpandProperty Name
 
-        $newProperties = @{
-            watched_at = (Get-Date).ToUniversalTime().ToString()
-        }
+        $newProperties = @{}
 
         if ($propertyNames -contains 'ids') {
             $newProperties.ids  = $InputObject.IDs
         }
 
-        [PSCustomObject]$newProperties
+        $newProperties
     }
 }
