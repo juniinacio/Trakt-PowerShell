@@ -645,7 +645,7 @@
 								<PropertyName>Replies</PropertyName>
 							</TableColumnItem>
 							<TableColumnItem>
-								<PropertyName>Like</PropertyName>
+								<PropertyName>Likes</PropertyName>
 							</TableColumnItem>
 							<TableColumnItem>
 								<PropertyName>UserRating</PropertyName>
