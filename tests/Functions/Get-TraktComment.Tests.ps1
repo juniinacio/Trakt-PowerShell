@@ -11,7 +11,7 @@ InModuleScope Trakt-PowerShell {
 
             $comment = $movie | Add-TraktComment -Comment "Oh, I wasn't really listening." -Facebook
 
-            $reply = Add-TraktCommentReply -InputObject $comment -Comment "Couldn't agree more with your review!"
+            $reply = Add-TraktComment -InputObject $comment.Id -Comment "Couldn't agree more with your review!" -Replies
         }
 
         It "Get a comment or reply" {
