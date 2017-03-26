@@ -1772,5 +1772,47 @@
 			</TableControl>
 		</View>
 
+		<View>
+			<Name>Trakt.WatchList</Name>
+			<ViewSelectedBy>
+				<TypeName>Trakt.WatchList</TypeName>
+			</ViewSelectedBy>
+
+			<TableControl>
+				<TableHeaders>
+					<TableColumnHeader>
+						<Label>Rank</Label>
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<Label>ListedAt</Label>
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<Label>Title</Label>
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<Label>Type</Label>
+					</TableColumnHeader>
+				</TableHeaders>
+				<TableRowEntries>
+					<TableRowEntry>
+						<TableColumnItems>
+							<TableColumnItem>
+								<PropertyName>Rank</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>ListedAt</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>Title</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>Type</PropertyName>
+							</TableColumnItem>
+						</TableColumnItems>
+					</TableRowEntry>
+				</TableRowEntries>
+			</TableControl>
+		</View>
+
 	</ViewDefinitions>
 </Configuration>
