@@ -38,7 +38,6 @@ InModuleScope Trakt-PowerShell {
             $movies = Get-TraktMovie -Collected -Period 'all'
 
             ($movies | Measure-Object).Count | Should Not Be 0
-            $movies | Where-Object { $_.Title -eq 'Batman Begins' } | Should Not BeNullOrEmpty
         }
 
         It "Get the most anticipated movies" {
