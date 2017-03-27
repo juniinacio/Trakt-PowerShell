@@ -46,7 +46,12 @@ function Invoke-Trakt
         # Method help description
         [Parameter(Mandatory=$false)]
         [Microsoft.PowerShell.Commands.WebRequestMethod]
-        $Method = [Microsoft.PowerShell.Commands.WebRequestMethod]::Default
+        $Method = [Microsoft.PowerShell.Commands.WebRequestMethod]::Default,
+
+        # Paramaters help description
+        [Parameter(Mandatory=$false)]
+        [Hashtable]
+        $Headers
     )
 
     process
@@ -70,12 +75,21 @@ function Invoke-Trakt
 
             $requestParameters.Uri = $builder.ToString()
 
-            $headers = $Script:DEFAULT_HEADERS
+            $newHeaders = $Script:DEFAULT_HEADERS
             if ($Script:ACCESS_TOKEN -ne $null) {
-                $headers.authorization = ('Bearer {0}' -f $Script:ACCESS_TOKEN.access_token)
+                $newHeaders.authorization = ('Bearer {0}' -f $Script:ACCESS_TOKEN.access_token)
+            }
+
+            if ($PSBoundParameters.ContainsKey('Headers')) {
+                $Headers.GetEnumerator() |
+                ForEach-Object {
+                    if (-not $newHeaders.ContainsKey($_.Key)) {
+                        $newHeaders.$_.Key = $_.Value
+                    }
+                }
             }
             
-            $requestParameters.Headers = $headers
+            $requestParameters.Headers = $newHeaders
 
             if ($PSBoundParameters.ContainsKey('PostData')) {
                 $requestParameters.Body = $PostData | ConvertTo-Json -Depth 4
