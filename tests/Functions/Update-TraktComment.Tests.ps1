@@ -17,7 +17,7 @@ InModuleScope Trakt-PowerShell {
             $update.Comment | Should Be "Agreed, this show is awesome. AMC in general has awesome shows and I can't wait to see what they come up with next."
         }
 
-        It "Update a reply" {
+        It "Update a reply" -Skip {
         }
 
         AfterAll {

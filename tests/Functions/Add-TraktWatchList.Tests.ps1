@@ -29,6 +29,8 @@ InModuleScope Trakt-PowerShell {
         }
 
         It "Add episode to watchlist" {
+            $show = Get-TraktShow -Id 'game-of-thrones' -Summary
+            
             $episode = $show.Seasons[0].Episodes[1]
             $episode | Add-TraktWatchList | Out-Null
 

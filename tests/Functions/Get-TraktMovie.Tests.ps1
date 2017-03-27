@@ -18,7 +18,6 @@ InModuleScope Trakt-PowerShell {
             $movies = Get-TraktMovie -Popular
 
             ($movies | Measure-Object).Count | Should Not Be 0
-            $movies | Where-Object { $_.Title -eq 'The Matrix' } | Should Not BeNullOrEmpty
         }
 
         It "Get the most played movies" {
