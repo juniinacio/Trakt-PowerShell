@@ -10,34 +10,37 @@ InModuleScope Trakt-PowerShell {
 
         It "Add movie to watchlist" {
             $movie = Get-TraktMovie -Id "guardians-of-the-galaxy-2014" -Summary
-            $movie | Add-TraktWatchList | Out-Null
+            
+            $result = $movie | Add-TraktWatchList
 
-            $movies = Get-TraktWatchList -Type movies
+            $watchLists = Get-TraktWatchList -Type movies
 
-            ($movies | Measure-Object).Count | Should BeGreaterThan 0
-            $movies | Where-Object { $_.Movie.Title -eq 'Guardians of the Galaxy' } | Should Not BeNullOrEmpty
+            ($watchLists | Measure-Object).Count | Should BeGreaterThan 0
+            $watchLists | Where-Object { $_.Movie.Title -eq 'Guardians of the Galaxy' } | Should Not BeNullOrEmpty
         }
 
         It "Add show to watchlist" {
             $show = Get-TraktShow -Id 'game-of-thrones' -Summary
-            $show | Add-TraktWatchList | Out-Null
 
-            $seasons = Get-TraktWatchList -Type seasons
+            $result = $show | Add-TraktWatchList
 
-            ($seasons | Measure-Object).Count | Should BeGreaterThan 0
-            $seasons | Where-Object { $_.Season.Number -eq 1 } | Should Not BeNullOrEmpty
+            $watchLists = Get-TraktWatchList -Type seasons
+
+            ($watchLists | Measure-Object).Count | Should BeGreaterThan 0
+            $watchLists | Where-Object { $_.Season.Number -eq 1 } | Should Not BeNullOrEmpty
         }
 
         It "Add episode to watchlist" {
             $show = Get-TraktShow -Id 'game-of-thrones' -Summary
             
             $episode = $show.Seasons[0].Episodes[1]
-            $episode | Add-TraktWatchList | Out-Null
 
-            $episodes = Get-TraktWatchList -Type episodes
+            $result = $episode | Add-TraktWatchList
 
-            ($episodes | Measure-Object).Count | Should BeGreaterThan 0
-            $episodes | Where-Object { $_.Show.Title -eq 'Game of Thrones' } | Should Not BeNullOrEmpty
+            $watchLists = Get-TraktWatchList -Type episodes
+
+            ($watchLists | Measure-Object).Count | Should BeGreaterThan 0
+            $watchLists | Where-Object { $_.Show.Title -eq 'Game of Thrones' } | Should Not BeNullOrEmpty
         }
 
         AfterAll {
