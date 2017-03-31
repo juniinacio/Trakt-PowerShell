@@ -43,6 +43,7 @@ function Add-TraktComment
         # Comment help description
         [Parameter(Mandatory=$true, ParameterSetName='PostAComment')]
         [Parameter(Mandatory=$true, ParameterSetName='PostAReplyForAComment')]
+        [ValidateScript({($_ -Split '\s' | Measure-Object).Count -ge 5})]
         [String]
         $Comment,
 
@@ -89,19 +90,19 @@ function Add-TraktComment
 
             if ($InputObject.PSObject.TypeNames -contains 'Trakt.Movie') {
                 $newInputObject = $InputObject | ConvertFrom-TraktMovie
-                $postData.movie += $newInputObject
+                $postData.movie = $newInputObject
             } elseif ($InputObject.PSObject.TypeNames -contains 'Trakt.Show') {
                 $newInputObject = $InputObject | ConvertFrom-TraktShow
-                $postData.show += $newInputObject
+                $postData.show = $newInputObject
             } elseif ($InputObject.PSObject.TypeNames -contains 'Trakt.Season') {
                 $newInputObject = $InputObject | ConvertFrom-TraktSeason
-                $postData.season += $newInputObject
+                $postData.season = $newInputObject
             } elseif ($InputObject.PSObject.TypeNames -contains 'Trakt.Episode') {
                 $newInputObject = $InputObject | ConvertFrom-TraktEpisode
-                $postData.episode += $newInputObject
-            } elseif ($InputObject.PSObject.TypeNames -contains 'Trakt.List') {
+                $postData.episode = $newInputObject
+            } elseif ($InputObject.PSObject.TypeNames -contains 'Trakt.List' -or $InputObject.PSObject.TypeNames -contains 'Trakt.WatchList') {
                 $newInputObject = $InputObject | ConvertFrom-TraktList
-                $postData.list += $newInputObject
+                $postData.list = $newInputObject
             } else {
                 throw 'Unknown object type passed to the cmdlet.'
             }

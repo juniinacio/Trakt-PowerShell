@@ -20,7 +20,7 @@
 .FUNCTIONALITY
     The functionality that best describes this cmdlet
 #>
-function ConvertFrom-TraktList {
+function ConvertFrom-TraktSeason {
     [CmdletBinding()]
     [OutputType([Object])]
     Param (
