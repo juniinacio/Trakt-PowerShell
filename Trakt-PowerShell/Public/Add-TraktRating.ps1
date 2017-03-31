@@ -64,7 +64,7 @@ function Add-TraktRating
     
     process
     {
-        # LINK: http://docs.trakt.apiary.io/#reference/sync/add-to-collection/add-items-to-collection
+        # LINK: http://docs.trakt.apiary.io/#reference/sync/add-ratings/add-new-ratings
 
         if ($InputObject.PSObject.TypeNames -contains 'Trakt.Movie') {
             $newInputObject = $InputObject | ConvertFrom-TraktMovie
