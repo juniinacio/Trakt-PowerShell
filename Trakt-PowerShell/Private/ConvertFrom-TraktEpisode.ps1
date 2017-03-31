@@ -22,7 +22,7 @@
 #>
 function ConvertFrom-TraktEpisode {
     [CmdletBinding()]
-    [OutputType([Object])]
+    [OutputType([Hashtable])]
     Param (
         # Param1 help description
         [Parameter(Mandatory=$true, ValueFromPipeline=$true, ValueFromPipelineByPropertyName=$true)]

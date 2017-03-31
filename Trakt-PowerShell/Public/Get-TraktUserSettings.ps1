@@ -1,20 +1,14 @@
 <#
 .Synopsis
-    Gets all collected items in a user's collection.
+    Get the user's settings so you can align your app's experience with what they're used to on the trakt website.
 .DESCRIPTION
-    Gets all collected items in a user's collection.
+    Get the user's settings so you can align your app's experience with what they're used to on the trakt website.
 .EXAMPLE
-    PS C:\> Get-TraktCollection -Type movies
+    PS C:\> Get-TraktUserSettings
 
     Description
     -----------
-    This example shows how to get all collected movies from your Trakt.TV collection.
-.EXAMPLE
-    PS C:\> Get-TraktCollection -Type shows
-
-    Description
-    -----------
-    This example shows how to get all collected shows from your Trakt.TV collection.
+    This example shows how to get your user settings from Trakt.TV.
 .INPUTS
     None
 .OUTPUTS
@@ -44,7 +38,7 @@ function Get-TraktUserSettings
         
         Invoke-Trakt -Uri $uri -Method ([Microsoft.PowerShell.Commands.WebRequestMethod]::Get) |
         ForEach-Object {
-            $_
+            $_ | ConvertTo-TraktUserSettings
         }
     }
 }

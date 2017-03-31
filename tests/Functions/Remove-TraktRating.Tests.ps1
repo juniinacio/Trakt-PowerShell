@@ -33,7 +33,7 @@ InModuleScope Trakt-PowerShell {
         }
 
         AfterAll {
-            Get-TraktRating | Remove-TraktRating
+            Get-TraktRating | Remove-TraktRating | Out-Null
         }
     }
 }

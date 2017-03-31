@@ -22,7 +22,7 @@
 #>
 function ConvertTo-TraktRecommendationShow {
     [CmdletBinding()]
-    [OutputType([Object])]
+    [OutputType([PSCustomObject])]
     Param (
         # Param1 help description
         [Parameter(Mandatory=$true, ValueFromPipeline=$true, ValueFromPipelineByPropertyName=$true)]

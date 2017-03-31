@@ -24,7 +24,7 @@
 #>
 function Connect-Trakt {
     [CmdletBinding()]
-    [OutputType([Void])]
+    [OutputType([Object])]
     Param ()
     
     begin {

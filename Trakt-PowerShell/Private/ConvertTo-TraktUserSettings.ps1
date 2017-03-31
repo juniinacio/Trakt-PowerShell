@@ -20,7 +20,7 @@
 .FUNCTIONALITY
     The functionality that best describes this cmdlet
 #>
-function ConvertTo-TraktWatched {
+function ConvertTo-TraktUserSettings {
     [CmdletBinding()]
     [OutputType([PSCustomObject])]
     Param (
@@ -38,24 +38,14 @@ function ConvertTo-TraktWatched {
         Select-Object -ExpandProperty Name
 
         $newProperties = @{
-            Plays = $InputObject.plays
-            LastWatchedAt = $InputObject.last_watched_at | ConvertTo-LocalTime
-        }
-
-        if ($propertyNames -contains 'movie') {
-            $newProperties.Movie = $InputObject.movie | ConvertTo-TraktMovie
-        }
-
-        if ($propertyNames -contains 'show') {
-            $newProperties.Show = $InputObject.show | ConvertTo-TraktShow
-        }
-
-        if ($propertyNames -contains 'seasons') {
-            $newProperties.Seasons = $InputObject.seasons | ConvertTo-TraktSeason -ParentObject $newProperties.Show
+            User = $InputObject.user
+            Account = $InputObject.account
+            Connections = $InputObject.connections
+            SharingText = $InputObject.sharing_text
         }
 
         $psco = [PSCustomObject]$newProperties
-        $psco.PSObject.TypeNames.Insert(0, 'Trakt.Watched')
+        $psco.PSObject.TypeNames.Insert(0, 'Trakt.UserSettings')
         $psco
     }
 }
