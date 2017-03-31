@@ -81,6 +81,7 @@ InModuleScope Trakt-PowerShell {
         }
 
         AfterAll {
+            Get-TraktWatchList | Remove-TraktWatchList | Out-Null
         }
     }
 }
