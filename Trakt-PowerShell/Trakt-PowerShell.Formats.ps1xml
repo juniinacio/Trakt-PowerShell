@@ -1814,5 +1814,41 @@
 			</TableControl>
 		</View>
 
+		<View>
+			<Name>Trakt.FollowRequest</Name>
+			<ViewSelectedBy>
+				<TypeName>Trakt.FollowRequest</TypeName>
+			</ViewSelectedBy>
+
+			<TableControl>
+				<TableHeaders>
+					<TableColumnHeader>
+						<Label>Id</Label>
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<Label>RequestedAt</Label>
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<Label>By</Label>
+					</TableColumnHeader>
+				</TableHeaders>
+				<TableRowEntries>
+					<TableRowEntry>
+						<TableColumnItems>
+							<TableColumnItem>
+								<PropertyName>Id</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>RequestedAt</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>By</PropertyName>
+							</TableColumnItem>
+						</TableColumnItems>
+					</TableRowEntry>
+				</TableRowEntries>
+			</TableControl>
+		</View>
+
 	</ViewDefinitions>
 </Configuration>

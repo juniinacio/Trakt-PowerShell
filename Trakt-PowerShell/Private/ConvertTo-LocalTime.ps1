@@ -28,10 +28,10 @@ function ConvertTo-LocalTime {
         [Parameter(Mandatory=$true, ValueFromPipeline=$true, ValueFromPipelineByPropertyName=$true)]
         [ValidateNotNullOrEmpty()]
         [String]
-        $DateTime
+        $UTCTime
     )
     
     process {
-        ([DateTime]$DateTime).ToLocalTime()
+        [DateTime]$UTCTime
     }
 }

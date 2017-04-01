@@ -11,7 +11,7 @@ InModuleScope Trakt-PowerShell {
 
             $episode = (Get-TraktShow -id "the-flash" -Summary).Seasons[0].Episodes[0]
 
-            Remove-TraktCheckin
+            Remove-TraktCheckin | Out-Null
         }
 
         It "Check into an movie" {
