@@ -20,7 +20,7 @@
 .FUNCTIONALITY
     The functionality that best describes this cmdlet
 #>
-function ConvertTo-TraktFollowerRequest {
+function ConvertTo-TraktFollower {
     [CmdletBinding()]
     [OutputType([PSCustomObject])]
     Param (
@@ -39,12 +39,11 @@ function ConvertTo-TraktFollowerRequest {
 
         $newProperties = @{
             User = $InputObject.user | ConvertTo-TraktUser
-            Id = $InputObject.id
-            RequestedAt = $InputObject.requested_at | ConvertTo-LocalTime
+            FollowedAt = $InputObject.followed_at | ConvertTo-LocalTime
         }
 
         $psco = [PSCustomObject]$newProperties
-        $psco.PSObject.TypeNames.Insert(0, 'Trakt.FollowerRequest')
+        $psco.PSObject.TypeNames.Insert(0, 'Trakt.Follower')
         $psco
     }
 }

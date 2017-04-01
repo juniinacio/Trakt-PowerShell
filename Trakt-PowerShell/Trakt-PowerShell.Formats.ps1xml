@@ -1815,9 +1815,9 @@
 		</View>
 
 		<View>
-			<Name>Trakt.FollowRequest</Name>
+			<Name>Trakt.FollowerRequest</Name>
 			<ViewSelectedBy>
-				<TypeName>Trakt.FollowRequest</TypeName>
+				<TypeName>Trakt.FollowerRequest</TypeName>
 			</ViewSelectedBy>
 
 			<TableControl>
@@ -1840,6 +1840,36 @@
 							</TableColumnItem>
 							<TableColumnItem>
 								<PropertyName>RequestedAt</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>By</PropertyName>
+							</TableColumnItem>
+						</TableColumnItems>
+					</TableRowEntry>
+				</TableRowEntries>
+			</TableControl>
+		</View>
+
+		<View>
+			<Name>Trakt.Follower</Name>
+			<ViewSelectedBy>
+				<TypeName>Trakt.Follower</TypeName>
+			</ViewSelectedBy>
+
+			<TableControl>
+				<TableHeaders>
+					<TableColumnHeader>
+						<Label>FollowedAt</Label>
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<Label>By</Label>
+					</TableColumnHeader>
+				</TableHeaders>
+				<TableRowEntries>
+					<TableRowEntry>
+						<TableColumnItems>
+							<TableColumnItem>
+								<PropertyName>FollowedAt</PropertyName>
 							</TableColumnItem>
 							<TableColumnItem>
 								<PropertyName>By</PropertyName>
