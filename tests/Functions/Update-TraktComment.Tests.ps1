@@ -21,7 +21,7 @@ InModuleScope Trakt-PowerShell {
         }
 
         AfterAll {
-            Remove-TraktComment -InputObject $comment
+            Remove-TraktComment -InputObject $comment | Out-Null
         }
     }
 }
