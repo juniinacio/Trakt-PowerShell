@@ -22,9 +22,9 @@
 .FUNCTIONALITY
     The functionality that best describes this cmdlet
 #>
-function Get-TraktFollowerRequests
+function Get-TraktFollowerRequest
 {
-    [CmdletBinding(DefaultParameterSetName='ASinglePerson')]
+    [CmdletBinding()]
     [OutputType([PSCustomObject])]
     Param ()
     

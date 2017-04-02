@@ -1,20 +1,20 @@
 <#
 .Synopsis
-    Deny a follower using the id of the request. If the id is not found, was already approved, or was already denied, a 404 error will be returned.
+    Approve a follower using the id of the request. If the id is not found, was already approved, or was already denied, a 404 error will be returned.
 .DESCRIPTION
-    Deny a follower using the id of the request. If the id is not found, was already approved, or was already denied, a 404 error will be returned.
+    Approve a follower using the id of the request. If the id is not found, was already approved, or was already denied, a 404 error will be returned.
 .EXAMPLE
-    PS C:\> Deny-TraktFollowerRequests -InputObject 123
+    PS C:\> Approve-TraktFollowerRequests -InputObject 123
 
     Description
     -----------
-    This example shows how to deny your pending follow reguests.
+    This example shows how to approve your pending follow reguests.
 .EXAMPLE
-    PS C:\> Get-TraktFollowerRequests | Deny-TraktFollowerRequests
+    PS C:\> Get-TraktFollowerRequests | Approve-TraktFollowerRequests
 
     Description
     -----------
-    This example shows how to deny all your pending follow reguests.
+    This example shows how to approve all your pending follow reguests.
 .INPUTS
     None
 .OUTPUTS
@@ -28,9 +28,9 @@
 .FUNCTIONALITY
     The functionality that best describes this cmdlet
 #>
-function Deny-TraktFollowerRequests
+function Approve-TraktFollowerRequest
 {
-    [CmdletBinding(DefaultParameterSetName='ASinglePerson')]
+    [CmdletBinding()]
     [OutputType([PSCustomObject])]
     Param (
         # InputObject help description
@@ -53,6 +53,9 @@ function Deny-TraktFollowerRequests
 
         $uri = 'users/requests/{0}' -f $id
         
-        Invoke-Trakt -Uri $uri -Method ([Microsoft.PowerShell.Commands.WebRequestMethod]::Delete)
+        Invoke-Trakt -Uri $uri -Method ([Microsoft.PowerShell.Commands.WebRequestMethod]::Get) |
+        ForEach-Object {
+            $_ | ConvertTo-TraktFollower
+        }
     }
 }
