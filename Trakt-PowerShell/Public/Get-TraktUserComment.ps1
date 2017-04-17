@@ -55,7 +55,7 @@ function Get-TraktUserComment
     {
         # LINK: http://docs.trakt.apiary.io/#reference/users/comments/get-comments
 
-        $uri = 'users/{0}/comments/comment_type/type' -f $Id
+        $uri = 'users/{0}' -f $Id
         if ($PSBoundParameters.ContainsKey('CommentType')) {
             if ($PSBoundParameters.ContainsKey('CommentType')) {
                 $uri = 'users/{0}/comments/{1}/{2}' -f $Id, $CommentType, $Type
