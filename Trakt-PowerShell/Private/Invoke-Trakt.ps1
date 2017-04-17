@@ -88,13 +88,16 @@ function Invoke-Trakt
                     }
                 }
             }
+
+            [string]$hdr = ($newHeaders | Format-Table -AutoSize | Out-String).TrimEnd()
+            Write-Verbose "Headers: `n$($hdr.split("`n").Foreach({"$("`t"*2)$_"}) | Out-String) `n"
             
             $requestParameters.Headers = $newHeaders
 
             if ($PSBoundParameters.ContainsKey('PostData')) {
                 $requestParameters.Body = $PostData | ConvertTo-Json -Depth 4
                 
-                Write-Debug $requestParameters.Body
+                Write-Debug "Body: `n$($requestParameters.Body)`n"
             }
             
             if ($PSBoundParameters.ContainsKey('Method')) {
