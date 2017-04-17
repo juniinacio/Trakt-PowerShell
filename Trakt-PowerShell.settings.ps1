@@ -13,9 +13,6 @@ param(
 # Static settings -- no reason to include these in the param block
 ###############################################################################
 $Settings = @{
-    SMBRepoName = 'DSCGallery'
-    SMBRepoPath = '\\Server01\Repo'
-
     Author =  "Juni Inacio"
     Owners = "Juni Inacio"
     LicenseUrl = 'https://github.com/juniinacio/Trakt-PowerShell/blob/master/LICENSE'
@@ -23,8 +20,7 @@ $Settings = @{
     PackageDescription = "A PowerShell module for managing your Trakt.TV account."
     Repository = 'https://github.com/juniinacio/Trakt-PowerShell'
     Tags = ""
-
-    # TODO: fix any redudant naming
+    
     GitRepo = "juniinacio/Trakt-PowerShell"
     CIUrl = "http://jenkins/job/Trakt-PowerShell/"
 }

@@ -57,7 +57,7 @@ task RunTests {
     $invokePesterParams = @{
         OutputFile =  (Join-Path $Artifacts "TestResults.xml")
         OutputFormat = 'NUnitXml'
-        Strict = $true
+        Strict = $false
         PassThru = $true
         Verbose = $false
         EnableExit = $false
@@ -65,7 +65,7 @@ task RunTests {
     }
 
     # Publish Test Results as NUnitXml
-    $testResults = Invoke-Pester @invokePesterParams;
+    $testResults = Invoke-Pester @invokePesterParams
 
     # Save Test Results as JSON
     $testresults | ConvertTo-Json -Depth 5 | Set-Content  (Join-Path $Artifacts "PesterResults.json")
