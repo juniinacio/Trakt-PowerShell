@@ -20,7 +20,7 @@
 .FUNCTIONALITY
     The functionality that best describes this cmdlet
 #>
-function ConvertTo-TraktComment {
+function ConvertTo-TraktUserComment {
     [CmdletBinding()]
     [OutputType([PSCustomObject])]
     Param (
@@ -38,30 +38,35 @@ function ConvertTo-TraktComment {
         Select-Object -ExpandProperty Name
 
         $newProperties = @{
-            Id = $InputObject.id
-            Comment = $InputObject.comment
-            Spoiler = $InputObject.spoiler
-            Review = $InputObject.review
-            ParentId = $InputObject.parent_id
-            Replies = $InputObject.replies
-            Likes = $InputObject.likes
-            UserRating = $InputObject.user_rating
+            Type = $InputObject.type
         }
 
-        if ($propertyNames -contains 'created_at') {
-            $newProperties.CreatedAt = $InputObject.created_at | ConvertTo-LocalTime
+        if ($propertyNames -contains 'comment') {
+            $newProperties.Comment = $InputObject.comment | ConvertTo-TraktComment
         }
 
-        if ($propertyNames -contains 'updated_at') {
-            $newProperties.UpdatedAt = $InputObject.updated_at | ConvertTo-LocalTime
+        if ($propertyNames -contains 'movie') {
+            $newProperties.Movie = $InputObject.movie | ConvertTo-TraktMovie
         }
 
-        if ($propertyNames -contains 'user') {
-            $newProperties.User = $InputObject.user | ConvertTo-TraktUser
+        if ($propertyNames -contains 'show') {
+            $newProperties.Show = $InputObject.show | ConvertTo-TraktShow
+        }
+
+        if ($propertyNames -contains 'season') {
+            $newProperties.Season = $InputObject.season | ConvertTo-TraktSeason -ParentObject $newProperties.Show
+        }
+
+        if ($propertyNames -contains 'episode') {
+            $newProperties.Episode = $InputObject.episode | ConvertTo-TraktEpisode -ParentObject $newProperties.Season
+        }
+
+        if ($propertyNames -contains 'list') {
+            $newProperties.List = $InputObject.list | ConvertTo-TraktList
         }
 
         $psco = [PSCustomObject]$newProperties
-        $psco.PSObject.TypeNames.Insert(0, 'Trakt.Comment')
+        $psco.PSObject.TypeNames.Insert(0, 'Trakt.UserComment')
         $psco
     }
 }

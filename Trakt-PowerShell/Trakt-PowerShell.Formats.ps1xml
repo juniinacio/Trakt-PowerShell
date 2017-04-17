@@ -1952,5 +1952,41 @@
 			</TableControl>
 		</View>
 
+		<View>
+			<Name>Trakt.UserComment</Name>
+			<ViewSelectedBy>
+				<TypeName>Trakt.UserComment</TypeName>
+			</ViewSelectedBy>
+
+			<TableControl>
+				<TableHeaders>
+					<TableColumnHeader>
+						<Label>Type</Label>
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<Label>Title</Label>
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<Label>Comments</Label>
+					</TableColumnHeader>
+				</TableHeaders>
+				<TableRowEntries>
+					<TableRowEntry>
+						<TableColumnItems>
+							<TableColumnItem>
+								<PropertyName>Type</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>Title</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>Comments</PropertyName>
+							</TableColumnItem>
+						</TableColumnItems>
+					</TableRowEntry>
+				</TableRowEntries>
+			</TableControl>
+		</View>
+
 	</ViewDefinitions>
 </Configuration>
