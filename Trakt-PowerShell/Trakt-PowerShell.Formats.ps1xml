@@ -1916,5 +1916,41 @@
 			</TableControl>
 		</View>
 
+		<View>
+			<Name>Trakt.Like</Name>
+			<ViewSelectedBy>
+				<TypeName>Trakt.Like</TypeName>
+			</ViewSelectedBy>
+
+			<TableControl>
+				<TableHeaders>
+					<TableColumnHeader>
+						<Label>LikedAt</Label>
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<Label>Type</Label>
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<Label>Title</Label>
+					</TableColumnHeader>
+				</TableHeaders>
+				<TableRowEntries>
+					<TableRowEntry>
+						<TableColumnItems>
+							<TableColumnItem>
+								<PropertyName>LikedAt</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>Type</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>Title</PropertyName>
+							</TableColumnItem>
+						</TableColumnItems>
+					</TableRowEntry>
+				</TableRowEntries>
+			</TableControl>
+		</View>
+
 	</ViewDefinitions>
 </Configuration>
