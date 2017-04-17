@@ -22,7 +22,7 @@
 .FUNCTIONALITY
     The functionality that best describes this cmdlet
 #>
-function Get-TraktFollowerRequest
+function Get-TraktUserFollowerRequests
 {
     [CmdletBinding()]
     [OutputType([PSCustomObject])]

@@ -3,13 +3,13 @@ $Global:IsStaging = $true
 Import-Module $(Join-Path -Path $PSScriptRoot -ChildPath '../../Trakt-PowerShell/Trakt-PowerShell.psd1') -Force
 
 InModuleScope Trakt-PowerShell {
-    Describe "Get-TraktHiddenItem" -Tags "CI" {
+    Describe "Get-TraktUserHiddenItem" -Tags "CI" {
         BeforeAll {
             Connect-Trakt | Out-Null
         }
 
         It "Get hidden items" {
-            $items = Get-TraktHiddenItem -Section recommendations
+            $items = Get-TraktUserHiddenItem -Section recommendations
 
             ($items | Measure-Object).Count | Should BeGreaterThan 0
 

@@ -14,7 +14,7 @@ InModuleScope Trakt-PowerShell {
 
             $movie | Add-TraktWatchList | Out-Null
 
-            $list = Get-TraktMovie -id $movie.IDs.slug -Lists -Type all | Where-Object { $_.By -eq 'juni.inacio' }
+            $list = Get-TraktMovie -id $movie.IDs.slug -Lists -Type all | Where-Object { $_.By -eq 'tmdb' }
         }
 
         It "Post a comment about a movie" {

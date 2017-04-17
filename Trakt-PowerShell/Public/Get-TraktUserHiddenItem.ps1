@@ -22,7 +22,7 @@
 .FUNCTIONALITY
     The functionality that best describes this cmdlet
 #>
-function Get-TraktHiddenItem
+function Get-TraktUserHiddenItem
 {
     [CmdletBinding()]
     [OutputType([PSCustomObject])]
