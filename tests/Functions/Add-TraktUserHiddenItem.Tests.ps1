@@ -10,7 +10,7 @@ InModuleScope Trakt-PowerShell {
             $show = Get-TraktShow -Summary -Id 'game-of-thrones'
         }
 
-        It "Add hidden items" {
+        It "Add hidden items" -Pending {
         }
 
         AfterAll {

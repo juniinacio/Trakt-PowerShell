@@ -8,7 +8,7 @@ InModuleScope Trakt-PowerShell {
             Connect-Trakt | Out-Null
         }
 
-        It "Remove hidden items" {
+        It "Remove hidden items" -Pending {
         }
 
         AfterAll {

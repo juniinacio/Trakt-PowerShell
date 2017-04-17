@@ -8,7 +8,7 @@ InModuleScope Trakt-PowerShell {
             Connect-Trakt | Out-Null
         }
 
-        It "Deny follow request" {
+        It "Deny follow request" -Pending {
         }
 
         AfterAll {

@@ -8,10 +8,10 @@ InModuleScope Trakt-PowerShell {
             Connect-Trakt | Out-Null
         }
 
-        It "Hide a movie recommendation" -Skip:$true {
+        It "Hide a movie recommendation" -Pending {
         }
 
-        It "Hide a show recommendation" -Skip:$true {
+        It "Hide a show recommendation" -Pending {
         }
 
         AfterAll {

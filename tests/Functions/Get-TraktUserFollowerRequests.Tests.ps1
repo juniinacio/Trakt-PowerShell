@@ -8,7 +8,7 @@ InModuleScope Trakt-PowerShell {
             Connect-Trakt | Out-Null
         }
 
-        It "Get follow requests" {
+        It "Get follow requests" -Pending {
         }
 
         AfterAll {
