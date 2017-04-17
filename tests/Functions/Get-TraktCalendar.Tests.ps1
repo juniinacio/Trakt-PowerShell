@@ -59,7 +59,7 @@ InModuleScope Trakt-PowerShell {
         It "Get movies" {
             $movies = Get-TraktCalendar -AllMovies
 
-            ($movies | Measure-Object).Count | Should f Be 0
+            ($movies | Measure-Object).Count | Should Be 0
         }
 
         It "Get DVD releases" {
