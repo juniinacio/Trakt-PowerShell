@@ -70,7 +70,7 @@ function Get-TraktUserComment
             $parameters.extended = 'metadata'
         }
         
-        Invoke-Trakt -Uri $uri -Method ([Microsoft.PowerShell.Commands.WebRequestMethod]::Get) -Parameters $parameters |
+        Invoke-Trakt -Uri $uri -Method ([Microsoft.PowerShell.Commands.WebRequestMethod]::Get) |
         ForEach-Object {
             $_ | ConvertTo-TraktUserComment
         }
